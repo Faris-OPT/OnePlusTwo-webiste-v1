@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 5)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -41,8 +41,12 @@ Read this before making any changes. It records decisions made while designing a
 
 - Plans, all per month + VAT: Starter £49, Essentials £79 (marked "Most popular"), Premium £109.
 - Extra licences for existing customers: £19 a month + VAT each, for any additional till, kitchen display screen, collection screen or self-service kiosk.
-- Self-service kiosk: £59 a month + VAT software (£19 if already on a plan), hardware from £649 one-off.
-- Complete till kit: £399 one-off (Sunmi or tablet terminal, 80mm printer, cash drawer, integrated card machine).
+- Self-service kiosk: £59 a month + VAT software (£19 if already on a plan), hardware from £649 + VAT one-off.
+- All prices, including hardware, are shown + VAT.
+- Every plan includes 7-day support.
+- Enquiries are answered within 2 hours.
+- Short-term options are available for one-off events and festivals.
+- Complete till kit: £399 + VAT one-off (Sunmi or tablet terminal, 80mm printer, cash drawer, integrated card machine).
 - Kitchen display screens: included in Essentials and Premium.
 - Online ordering website: included in Essentials and Premium (branded site, collection, delivery, online payments, QR code table ordering, orders straight to till and kitchen).
 - Collection display screens: £19 a month + VAT per screen. Customers supply their own TV or monitor.
@@ -54,6 +58,10 @@ Read this before making any changes. It records decisions made while designing a
 - Specific card processing rates. Say rates vary by payment provider.
 - "No contracts", "free trial" or "commission-free" claims.
 - The old site's "3 steps" hardware layout.
+
+## Hidden for now
+
+- The blog (`/blog` temporarily redirects to the homepage) and the team names, roles and photos on Why us? are hidden until content is ready.
 
 ## Products and partners
 

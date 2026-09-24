@@ -29,10 +29,10 @@ Page addresses drop the `.html`, so `pricing.html` is live at `/pricing`.
 
 **Filling in placeholders.** Anything in `[square brackets]` is placeholder text. Search for `[` to find them.
 
-**Adding photos.** Upload the photo to `assets/img/` (ideally a JPG under 300 KB, around 1600px wide). Then replace the placeholder, for example:
+**Adding photos.** Photo spots currently show brand illustrations. Each one is a `<div class="photo photo--illus ..." data-photo="...">` whose `data-photo` text describes the photo meant to go there (search for `data-photo` to find them). Upload the photo to `assets/img/` (ideally a JPG under 300 KB, around 1600px wide). Then replace the whole div, for example:
 
 ```html
-<div class="photo photo--tall">Photo: the OnePlusTwo team</div>
+<div class="photo photo--illus photo--tall" data-photo="the OnePlusTwo team"><img src="/assets/img/illustrations/team.svg" alt="" width="400" height="300" loading="lazy"></div>
 ```
 
 with:
@@ -53,7 +53,7 @@ Always describe the photo in `alt`. It helps visitors using screen readers and y
 { "source": "/old-page", "destination": "/pricing", "permanent": true }
 ```
 
-**After changing `styles.css` or `main.js`.** Each page loads them as `styles.css?v=4` and `main.js?v=4`. Increase that number in every page (for example to `v=5`) so visitors' browsers fetch the new version straight away.
+**After changing `styles.css` or `main.js`.** Each page loads them as `styles.css?v=5` and `main.js?v=5`. Increase that number in every page (for example to `v=6`) so visitors' browsers fetch the new version straight away.
 
 ## Connected services
 
