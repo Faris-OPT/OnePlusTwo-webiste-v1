@@ -1,4 +1,13 @@
 /* OnePlusTwo website scripts */
+
+/* ---------- Site settings ----------
+   Paste IDs here to switch services on. They only load for visitors who allow them in the cookie banner.
+   gaId:    Google Analytics 4 measurement ID, for example 'G-ABC123XYZ9'
+   tawkSrc: tawk.to embed address from the widget code, for example 'https://embed.tawk.to/1234abcd/1abc234' */
+var OPT_CONFIG = {
+  gaId: '',
+  tawkSrc: 'https://embed.tawk.to/67a89ba1825083258e127105/1ijl9vrnr'
+};
 (function () {
   'use strict';
 
@@ -188,4 +197,140 @@
     var season = month >= 10 ? 'christmas' : 'halloween';
     seasonal.forEach(function (el) { el.hidden = el.getAttribute('data-season') !== season; });
   }
+
+  /* ---------- Cookie consent ---------- */
+  var CONSENT_KEY = 'opt-cookie-consent';
+  var CATEGORIES = [
+    { key: 'analytics', label: 'Analytics', desc: 'Google Analytics, to understand how the site is used.' },
+    { key: 'chat', label: 'Live chat', desc: 'tawk.to, so you can chat with our team.' },
+    { key: 'booking', label: 'Demo booking', desc: 'Calendly, which runs our booking calendar.' }
+  ];
+
+  function readConsent() {
+    try { var c = JSON.parse(localStorage.getItem(CONSENT_KEY)); return c && c.v === 1 ? c : null; } catch (e) { return null; }
+  }
+  function writeConsent(c) {
+    c.v = 1; c.date = new Date().toISOString();
+    try { localStorage.setItem(CONSENT_KEY, JSON.stringify(c)); } catch (e) {}
+  }
+
+  var loaded = {};
+  function loadScript(src, attrs) {
+    var el = document.createElement('script');
+    el.async = true; el.src = src;
+    if (attrs) Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    document.body.appendChild(el);
+  }
+  function loadAnalytics() {
+    if (loaded.analytics || !OPT_CONFIG.gaId) return;
+    loaded.analytics = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', OPT_CONFIG.gaId);
+    loadScript('https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(OPT_CONFIG.gaId));
+  }
+  function loadChat() {
+    if (loaded.chat || !OPT_CONFIG.tawkSrc) return;
+    loaded.chat = true;
+    window.Tawk_API = window.Tawk_API || {};
+    window.Tawk_LoadStart = new Date();
+    loadScript(OPT_CONFIG.tawkSrc, { charset: 'UTF-8', crossorigin: '*' });
+  }
+  var calWidget = document.querySelector('[data-calendly-url]');
+  var calGate = document.querySelector('[data-calendly-gate]');
+  function loadBooking() {
+    if (loaded.booking || !calWidget) return;
+    loaded.booking = true;
+    if (calGate) calGate.hidden = true;
+    calWidget.hidden = false;
+    calWidget.setAttribute('data-url', calWidget.getAttribute('data-calendly-url'));
+    loadScript('https://assets.calendly.com/assets/external/widget.js');
+  }
+  function applyConsent(c) {
+    if (c && c.analytics) loadAnalytics();
+    if (c && c.chat) loadChat();
+    if (c && c.booking) { loadBooking(); }
+    else if (calWidget && calGate) { calWidget.hidden = true; calGate.hidden = false; }
+  }
+  function clearAnalyticsCookies() {
+    document.cookie.split(';').forEach(function (part) {
+      var name = part.split('=')[0].trim();
+      if (/^_ga/.test(name)) {
+        var host = location.hostname.replace(/^www\./, '');
+        ['', '; domain=.' + host, '; domain=' + location.hostname].forEach(function (d) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+        });
+      }
+    });
+  }
+
+  var banner = null;
+  function buildBanner() {
+    banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie choices');
+    var opts = CATEGORIES.map(function (cat) {
+      return '<label class="cookie-option"><input type="checkbox" name="' + cat.key + '"><span><strong>' + cat.label + '</strong> ' + cat.desc + '</span></label>';
+    }).join('');
+    banner.innerHTML =
+      '<div class="cookie-inner">' +
+        '<h2 class="cookie-title" tabindex="-1">Cookies on this website</h2>' +
+        '<p>We\u2019d like to use cookies for live chat, our booking calendar and to understand how the site is used. You can accept them all, reject them or choose which to allow. <a href="/privacy-policy#cookies">More about cookies</a></p>' +
+        '<fieldset class="cookie-options" hidden><legend class="visually-hidden">Choose cookies</legend>' + opts + '</fieldset>' +
+        '<div class="cookie-actions">' +
+          '<button type="button" class="btn btn--dark" data-consent="accept">Accept all</button>' +
+          '<button type="button" class="btn btn--dark" data-consent="reject">Reject all</button>' +
+          '<button type="button" class="btn btn--outline" data-consent="choose">Choose cookies</button>' +
+          '<button type="button" class="btn btn--primary" data-consent="save" hidden>Save my choices</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(banner);
+    banner.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-consent]');
+      if (!btn) return;
+      var action = btn.getAttribute('data-consent');
+      if (action === 'choose') { openOptions(); return; }
+      var next = { analytics: false, chat: false, booking: false };
+      if (action === 'accept') next = { analytics: true, chat: true, booking: true };
+      if (action === 'save') CATEGORIES.forEach(function (cat) { next[cat.key] = banner.querySelector('input[name="' + cat.key + '"]').checked; });
+      saveChoice(next);
+    });
+  }
+  function openOptions() {
+    var c = readConsent() || {};
+    CATEGORIES.forEach(function (cat) { banner.querySelector('input[name="' + cat.key + '"]').checked = !!c[cat.key]; });
+    banner.querySelector('.cookie-options').hidden = false;
+    banner.querySelector('[data-consent="choose"]').hidden = true;
+    banner.querySelector('[data-consent="save"]').hidden = false;
+  }
+  function showBanner(withOptions) {
+    if (!banner) buildBanner();
+    banner.hidden = false;
+    if (withOptions) openOptions();
+    banner.querySelector('.cookie-title').focus();
+  }
+  function saveChoice(next) {
+    var prev = readConsent() || {};
+    writeConsent(next);
+    banner.hidden = true;
+    if (!next.analytics) clearAnalyticsCookies();
+    var turnedOff = (prev.analytics && !next.analytics) || (prev.chat && !next.chat) || (prev.booking && !next.booking);
+    if (turnedOff) { window.location.reload(); return; }
+    applyConsent(next);
+  }
+
+  var stored = readConsent();
+  applyConsent(stored);
+  if (!stored) showBanner(false);
+  document.querySelectorAll('[data-cookie-settings]').forEach(function (el) {
+    el.addEventListener('click', function () { showBanner(true); });
+  });
+  document.querySelectorAll('[data-calendly-load]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var c = readConsent() || { analytics: false, chat: false };
+      c.booking = true; writeConsent(c); loadBooking();
+    });
+  });
 })();

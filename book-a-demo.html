@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/styles.css?v=8">
+<link rel="stylesheet" href="/assets/css/styles.css?v=11">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -57,7 +57,8 @@
 <section class="section section--flush-top"><div class="container grid grid-2 grid--top demo-grid">
 <div class="stack">
   <h2 class="h2--sm">Pick a time</h2>
-  <div class="calendly-wrap"><div class="calendly-inline-widget" data-url="https://calendly.com/hello-oneplustwo/oneplustwo-website-inquiry-demo?primary_color=04d98b&amp;text_color=161616"></div></div>
+  <div class="calendly-wrap"><div class="calendly-inline-widget" data-calendly-url="https://calendly.com/hello-oneplustwo/oneplustwo-website-inquiry-demo?primary_color=04d98b&amp;text_color=161616"></div>
+    <div class="calendly-gate" data-calendly-gate hidden><h3>See available times</h3><p>Our booking calendar is provided by Calendly, which sets its own cookies.</p><button type="button" class="btn btn--primary" data-calendly-load>Show the booking calendar</button></div></div>
   <p class="small">Booking calendar provided by Calendly, which sets its own cookies. See our <a href="/privacy-policy">privacy policy</a>. If the calendar doesn't load, <a href="https://calendly.com/hello-oneplustwo/oneplustwo-website-inquiry-demo" target="_blank" rel="noopener">book on Calendly instead</a>.</p>
 </div>
 <div class="form-panel">
@@ -70,9 +71,10 @@
     <div class="form-grid"><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required aria-required="true" aria-describedby="email-error"><span class="field-error" id="email-error" aria-live="polite"></span></div><div class="field"><label for="phone">Phone <span class="optional">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="phone-error"><span class="field-error" id="phone-error" aria-live="polite"></span></div></div>
     <div class="field"><label for="business-type">Type of business</label><select id="business-type" name="business_type"><option>Restaurant</option><option>Cafe</option><option>Takeaway</option><option>Events or festivals</option><option>Retail</option><option>Something else</option></select></div>
     <div class="field"><label for="message">What are you interested in? <span class="optional">(optional)</span></label><textarea id="message" name="message" rows="5" aria-describedby="message-error"></textarea><span class="field-error" id="message-error" aria-live="polite"></span></div>
+    <div class="check-field"><input type="checkbox" id="marketing" name="marketing_consent" value="Yes, happy to receive marketing emails"><label for="marketing">I'd like to receive occasional emails about OnePlusTwo products, updates and offers. You can unsubscribe at any time.</label></div>
     <button class="btn btn--dark btn--block" type="submit">Send enquiry</button>
     <p class="form-status" role="status" aria-live="polite"></p>
-    <p class="form-note">We'll only use your details to reply to your enquiry. See our <a href="/privacy-policy">privacy policy</a>.</p>
+    <p class="form-note">We'll use your details to reply to your enquiry, as explained in our <a href="/privacy-policy">privacy policy</a>.</p>
   </form>
   <div id="enquiry-success" class="form-success" tabindex="-1" hidden>
     <h3>Thanks, we've got your enquiry</h3>
@@ -95,10 +97,9 @@
       <div class="footer-col"><h2>Products</h2><ul><li><a href="/self-service-kiosks">Self-service kiosks</a></li><li><a href="/point-of-sale">Point of sale</a></li><li><a href="/integrated-payments">Integrated payments</a></li><li><a href="/kitchen-display-screens">Kitchen display screens</a></li><li><a href="/collection-display-screens">Collection display screens</a></li><li><a href="/online-ordering">Online ordering</a></li><li><a href="/hardware">Hardware</a></li></ul></div>
       <div class="footer-col"><h2>Company</h2><ul><li><a href="/why-us">Why us?</a></li><li><a href="/software">Software</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/integrations">Integrations</a></li><li><a href="/customers">Customers</a></li><li><a href="/book-a-demo">Book a demo</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 OnePlusTwo</span><a href="/privacy-policy">Privacy policy</a></div>
+    <div class="footer-bottom"><span>© 2026 OnePlusTwo</span><span class="footer-legal"><a href="/privacy-policy">Privacy policy</a><button type="button" class="link-button" data-cookie-settings>Cookie settings</button></span></div>
   </div>
 </footer>
-<script src="/assets/js/main.js?v=8" defer></script>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="/assets/js/main.js?v=11" defer></script>
 </body>
 </html>
