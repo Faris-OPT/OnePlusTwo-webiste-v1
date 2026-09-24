@@ -1,0 +1,94 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/why-us",
+      "permanent": true
+    },
+    {
+      "source": "/whyus",
+      "destination": "/why-us",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/self-service-kiosk",
+      "destination": "/self-service-kiosks",
+      "permanent": true
+    },
+    {
+      "source": "/pointofsale",
+      "destination": "/point-of-sale",
+      "permanent": true
+    },
+    {
+      "source": "/products-1",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/businesstypes",
+      "destination": "/who-we-serve",
+      "permanent": true
+    },
+    {
+      "source": "/hospitality",
+      "destination": "/who-we-serve",
+      "permanent": true
+    },
+    {
+      "source": "/hospitality-1",
+      "destination": "/retail",
+      "permanent": true
+    },
+    {
+      "source": "/contactus",
+      "destination": "/book-a-demo",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/book-a-demo",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ]
+}
