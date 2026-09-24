@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 6)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 7)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -58,6 +58,10 @@ Read this before making any changes. It records decisions made while designing a
 - Specific card processing rates. Say rates vary by payment provider.
 - "No contracts", "free trial" or "commission-free" claims.
 - The old site's "3 steps" hardware layout.
+
+## Seasonal content
+
+- The homepage has a "Get ready for the busy season" section (kiosks, events and festivals, kitchen display screens). Elements with `data-season="halloween"` show January to October and `data-season="christmas"` in November and December, switched automatically in `main.js`. Remove or replace the section after Christmas.
 
 ## Hidden for now
 

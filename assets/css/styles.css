@@ -507,3 +507,20 @@ img.photo-img { width: 100%; object-fit: cover; border-radius: var(--radius); }
 .quote--logo { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: center; }
 .quote-logo { width: clamp(96px, 12vw, 150px); height: auto; }
 @media (max-width: 640px) { .quote--logo { grid-template-columns: 1fr; } .quote-logo { width: 96px; } }
+
+/* Seasonal promotions (homepage) */
+.season-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+.season-card { display: flex; flex-direction: column; gap: 16px; padding: 22px 22px 30px; border-radius: 28px; background: var(--white); border: 1px solid var(--line); }
+.season-card .photo { aspect-ratio: 16 / 11; border-radius: 18px; }
+.season-card h3 { font-size: clamp(1.3rem, 0.6vw + 1.1rem, 1.55rem); }
+.season-card > .btn, .season-card > .btn-row { margin-top: auto; }
+.season-card > .btn { align-self: flex-start; }
+.season-card--featured { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.season-card--featured p { color: #D6DAD6; }
+.season-card--featured .photo--illus { border-color: transparent; }
+.btn--outline-light { border-color: var(--white); color: var(--white); background: transparent; }
+.btn--outline-light:hover { background: var(--white); color: var(--ink); }
+@media (max-width: 960px) {
+  .season-grid { grid-template-columns: 1fr; max-width: 560px; }
+  .season-card--featured { order: -1; }
+}

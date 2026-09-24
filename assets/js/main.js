@@ -179,4 +179,13 @@
       update();
     }
   }
+
+  /* ---------- Seasonal content (homepage) ----------
+     Halloween wording shows January to October, Christmas wording in November and December. */
+  var seasonal = document.querySelectorAll('[data-season]');
+  if (seasonal.length) {
+    var month = new Date().getMonth(); // 0 = January, 10 = November
+    var season = month >= 10 ? 'christmas' : 'halloween';
+    seasonal.forEach(function (el) { el.hidden = el.getAttribute('data-season') !== season; });
+  }
 })();
