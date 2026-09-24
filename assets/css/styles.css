@@ -484,3 +484,9 @@ img.photo-img { width: 100%; object-fit: cover; border-radius: var(--radius); }
 .hw-group .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 1024px) { .hw-group .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .hw-group .grid-3, .hw-group .grid-2 { grid-template-columns: 1fr; } }
+
+/* Keep a gap when a flush section follows a mint one */
+.section--mint + .section--flush-top { padding-top: var(--section); }
+
+/* Centre the Book a demo button in the mobile menu */
+.main-nav .nav-mobile-cta a { display: flex; justify-content: center; align-items: center; text-align: center; font-weight: 700; }
