@@ -53,7 +53,7 @@ Always describe the photo in `alt`. It helps visitors using screen readers and y
 { "source": "/old-page", "destination": "/pricing", "permanent": true }
 ```
 
-**After changing `styles.css` or `main.js`.** Each page loads them as `styles.css?v=3` and `main.js?v=3`. Increase that number in every page (for example to `v=4`) so visitors' browsers fetch the new version straight away.
+**After changing `styles.css` or `main.js`.** Each page loads them as `styles.css?v=4` and `main.js?v=4`. Increase that number in every page (for example to `v=5`) so visitors' browsers fetch the new version straight away.
 
 ## Connected services
 

@@ -490,3 +490,9 @@ img.photo-img { width: 100%; object-fit: cover; border-radius: var(--radius); }
 
 /* Centre the Book a demo button in the mobile menu */
 .main-nav .nav-mobile-cta a { display: flex; justify-content: center; align-items: center; text-align: center; font-weight: 700; }
+
+/* Venue logos on the homepage */
+.venue-logos { list-style: none; margin: 0; padding: 0; align-items: center; }
+.logo-tile--img { border: 0; min-height: 88px; padding: 8px 12px; }
+.logo-tile--img img { max-height: 64px; max-width: 100%; width: auto; object-fit: contain; opacity: .85; transition: opacity .2s ease; }
+.logo-tile--img:hover img { opacity: 1; }
