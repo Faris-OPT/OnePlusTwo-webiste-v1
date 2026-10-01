@@ -652,3 +652,4 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 
 /* Small print on shop cards */
 .shop-note { margin: 0; padding: 10px 12px; border-radius: 12px; background: var(--ground); font-size: 0.85rem !important; line-height: 1.5; color: var(--muted); }
+.shop-photos { font-size: 0.95rem; align-self: flex-start; }
