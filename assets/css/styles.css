@@ -627,3 +627,25 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .order-review-total { font-weight: 700; font-size: 1.1rem; padding-top: 8px; border-top: 1px solid var(--line); }
 .order-success { gap: 16px; }
 .order-success .tag { align-self: flex-start; }
+
+/* Header buttons: Shop and Book a demo */
+.header-ctas { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
+.header-cta svg { flex-shrink: 0; }
+.nav-mobile-cta { display: none; }
+@media (max-width: 1200px) {
+  .header-ctas { display: none !important; }
+  .nav-mobile-cta { display: flex !important; flex-direction: column; gap: 10px; }
+}
+
+/* Voucher code */
+.voucher { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+.voucher label { font-weight: 600; font-size: 0.95rem; }
+.voucher-row { display: flex; gap: 8px; }
+.voucher-row[hidden] { display: none; }
+.voucher-row input { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 1.5px solid #8F8B80; border-radius: 10px; font-family: var(--body); font-size: 1rem; text-transform: uppercase; }
+.voucher-row .btn { min-height: 44px; padding: 0 18px; font-size: 0.95rem; }
+.voucher-msg { font-size: 0.9rem; color: var(--green-dark) !important; margin: 0; }
+.voucher-msg:empty { display: none; }
+.voucher-msg--error { color: #B42318 !important; }
+.voucher-applied { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: var(--mint); font-size: 0.95rem; }
+.basket-discount dd { color: var(--green-dark); }
