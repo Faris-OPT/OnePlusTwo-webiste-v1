@@ -8,6 +8,10 @@ var OPT_CONFIG = {
   /* Formspree form for hardware orders. Create a form whose emails go to accounts@oneplustwo.co.uk,
      turn on its autoresponse with the Viva payment link, and paste its ID here (the part after /f/). */
   orderFormId: 'xrpbvovl',
+  /* Voucher codes, stored as SHA-256 hashes of 'opt-voucher:' + the code in capitals, so the real codes never
+     appear in this file. type 'percent' takes value % off products; type 'fixed' takes value pence off products.
+     Ask Claude to add, change or remove codes. */
+  vouchers: {},
   gaId: '',
   tawkSrc: 'https://embed.tawk.to/67a89ba1825083258e127105/1ijl9vrnr'
 };
@@ -366,14 +370,20 @@ var OPT_CONFIG = {
     var checkout = document.querySelector('[data-checkout]');
     var review = document.querySelector('[data-order-review]');
 
+    var VOUCHER_KEY = 'opt-voucher';
+    var voucher = (function () { try { return JSON.parse(localStorage.getItem(VOUCHER_KEY)); } catch (e) { return null; } })();
     function totals() {
       var sub = basket.reduce(function (t, i) { return t + i.price * i.qty; }, 0);
+      var disc = 0;
+      if (voucher && sub) disc = voucher.type === 'percent' ? Math.round(sub * voucher.value / 100) : Math.min(voucher.value, sub);
+      var net = sub - disc;
       var del = basket.length ? DELIVERY : 0;
-      var vat = Math.round(sub * VAT_RATE); // VAT on products only; delivery is a flat £4.65
-      return { sub: sub, del: del, vat: vat, total: sub + del + vat };
+      var vat = Math.round(net * VAT_RATE); // VAT on products after discount; delivery is a flat £4.65
+      return { sub: sub, disc: disc, net: net, del: del, vat: vat, total: net + del + vat };
     }
     function label(i) { return i.name + (i.option ? ' (' + i.option + ')' : ''); }
     function render() {
+      voucherBox.hidden = !basket.length;
       if (!basket.length) {
         shop.innerHTML = '<p class="small">Your basket is empty.</p>';
         totalsEl.hidden = true; checkoutLink.hidden = true; checkout.hidden = true;
@@ -387,17 +397,64 @@ var OPT_CONFIG = {
       }).join('');
       var t = totals();
       totalsEl.querySelector('[data-t="sub"]').textContent = money(t.sub);
+      var discRow = totalsEl.querySelector('[data-discount-row]');
+      discRow.hidden = !t.disc;
+      if (t.disc) {
+        totalsEl.querySelector('[data-t="disc-label"]').textContent = 'Discount (' + voucher.code + ')';
+        totalsEl.querySelector('[data-t="disc"]').textContent = '−' + money(t.disc);
+      }
+      voucherApplied.hidden = !voucher; voucherForm.hidden = !!voucher;
+      if (voucher) { voucherApplied.querySelector('[data-voucher-code]').textContent = voucher.code; voucherApplied.querySelector('[data-voucher-label]').textContent = voucher.label + ' applied'; }
       totalsEl.querySelector('[data-t="del"]').textContent = money(t.del);
       totalsEl.querySelector('[data-t="vat"]').textContent = money(t.vat);
       totalsEl.querySelector('[data-t="total"]').textContent = money(t.total);
       totalsEl.hidden = false; checkoutLink.hidden = false; checkout.hidden = false;
       review.innerHTML = '<h3>Order summary</h3><ul>' + basket.map(function (i) { return '<li>' + i.qty + ' × ' + label(i) + '<span>' + money(i.price * i.qty) + '</span></li>'; }).join('') +
-        '<li>VAT (20%)<span>' + money(t.vat) + '</span></li><li>Next day delivery<span>' + money(t.del) + '</span></li><li class="order-review-total">Total<span>' + money(t.total) + '</span></li></ul>';
+        (t.disc ? '<li>Discount (' + voucher.code + ', ' + voucher.label + ')<span>−' + money(t.disc) + '</span></li>' : '') + '<li>VAT (20%)<span>' + money(t.vat) + '</span></li><li>Next day delivery<span>' + money(t.del) + '</span></li><li class="order-review-total">Total<span>' + money(t.total) + '</span></li></ul>';
     }
     function announce(msg) { statusEl.textContent = msg; }
 
+    var voucherBox = document.querySelector('[data-voucher]');
+    var voucherInput = document.getElementById('voucher-code');
+    var voucherForm = voucherBox.querySelector('.voucher-row');
+    var voucherMsg = voucherBox.querySelector('[data-voucher-msg]');
+    var voucherApplied = voucherBox.querySelector('[data-voucher-applied]');
+    function sha256(text) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+      });
+    }
+    function applyVoucher() {
+      var code = voucherInput.value.trim().toUpperCase();
+      voucherMsg.textContent = ''; voucherMsg.classList.remove('voucher-msg--error');
+      if (!code) return;
+      if (!window.crypto || !crypto.subtle) { voucherMsg.textContent = 'Sorry, vouchers can\u2019t be checked in this browser.'; voucherMsg.classList.add('voucher-msg--error'); return; }
+      sha256('opt-voucher:' + code).then(function (h) {
+        var v = OPT_CONFIG.vouchers[h];
+        if (!v) { voucherMsg.textContent = 'Sorry, that code isn\u2019t valid.'; voucherMsg.classList.add('voucher-msg--error'); return; }
+        voucher = { code: code, type: v.type, value: v.value, label: v.label };
+        try { localStorage.setItem(VOUCHER_KEY, JSON.stringify(voucher)); } catch (e) {}
+        voucherInput.value = ''; render();
+        voucherMsg.textContent = 'Voucher applied: ' + v.label + '.';
+      });
+    }
+    voucherBox.querySelector('[data-voucher-apply]').addEventListener('click', applyVoucher);
+    voucherInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); applyVoucher(); } });
+    voucherBox.querySelector('[data-voucher-remove]').addEventListener('click', function () {
+      voucher = null; try { localStorage.removeItem(VOUCHER_KEY); } catch (e) {}
+      render(); voucherMsg.textContent = 'Voucher removed.'; voucherInput.focus();
+    });
+
     document.querySelectorAll('[data-product]').forEach(function (card) {
       var qty = card.querySelector('.qty-input');
+      var optSel = card.querySelector('[data-option]');
+      var priceOf = function () {
+        var o = optSel && optSel.selectedOptions[0];
+        return o && o.getAttribute('data-price') ? parseInt(o.getAttribute('data-price'), 10) : parseInt(card.getAttribute('data-price'), 10);
+      };
+      if (optSel) optSel.addEventListener('change', function () {
+        var p = priceOf(); card.querySelector('[data-price-display]').textContent = '£' + (p / 100).toLocaleString('en-GB', { maximumFractionDigits: 0 });
+      });
       card.querySelectorAll('.qty-btn').forEach(function (b) {
         b.addEventListener('click', function () {
           qty.value = Math.min(20, Math.max(1, (parseInt(qty.value, 10) || 1) + parseInt(b.getAttribute('data-qty'), 10)));
@@ -405,7 +462,7 @@ var OPT_CONFIG = {
       });
       card.querySelector('[data-add]').addEventListener('click', function () {
         var opt = card.querySelector('[data-option]');
-        var item = { id: card.getAttribute('data-product'), name: card.getAttribute('data-name'), price: parseInt(card.getAttribute('data-price'), 10),
+        var item = { id: card.getAttribute('data-product'), name: card.getAttribute('data-name'), price: priceOf(),
           option: opt ? opt.value : '', qty: Math.min(20, Math.max(1, parseInt(qty.value, 10) || 1)) };
         var existing = basket.filter(function (i) { return i.id === item.id && i.option === item.option; })[0];
         if (existing) existing.qty = Math.min(20, existing.qty + item.qty); else basket.push(item);
@@ -457,9 +514,18 @@ var OPT_CONFIG = {
       data.append('order_reference', ref);
       data.append('items', basket.map(function (i) { return i.qty + ' x ' + label(i) + ' @ ' + money(i.price) + ' = ' + money(i.price * i.qty); }).join('\n'));
       data.append('subtotal_ex_vat', money(t.sub));
-      data.append('delivery', money(t.del));
+      data.append('voucher_code', voucher ? voucher.code + ' (' + voucher.label + ')' : 'None');
+      data.append('discount', t.disc ? '-' + money(t.disc) : '£0.00');
+      data.append('subtotal_after_discount_ex_vat', money(t.net));
       data.append('vat', money(t.vat));
+      data.append('delivery', money(t.del));
       data.append('total_inc_vat', money(t.total));
+      var lines = ['ORDER ' + ref, '', 'ITEMS'];
+      basket.forEach(function (i) { lines.push(i.qty + ' x ' + label(i) + ' @ ' + money(i.price) + ' = ' + money(i.price * i.qty)); });
+      lines.push('', 'Subtotal (ex VAT): ' + money(t.sub));
+      if (t.disc) lines.push('Discount (' + voucher.code + ', ' + voucher.label + '): -' + money(t.disc), 'Subtotal after discount (ex VAT): ' + money(t.net));
+      lines.push('VAT (20%): ' + money(t.vat), 'Next day delivery: ' + money(t.del), 'TOTAL (inc VAT): ' + money(t.total));
+      data.append('order_summary', lines.join('\n'));
       data.append('payment_link', 'https://pay.vivawallet.com/epos-anytime');
       oBtn.disabled = true; oBtn.textContent = 'Placing order…';
       fetch(orderForm.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
@@ -470,6 +536,7 @@ var OPT_CONFIG = {
           ok.querySelector('[data-total]').textContent = money(t.total) + ' including VAT';
           orderForm.hidden = true; ok.hidden = false; ok.focus();
           basket = []; save(basket);
+          voucher = null; try { localStorage.removeItem(VOUCHER_KEY); } catch (e) {}
           shop.innerHTML = '<p class="small">Your basket is empty.</p>'; totalsEl.hidden = true; checkoutLink.hidden = true;
         })
         .catch(function (err) {

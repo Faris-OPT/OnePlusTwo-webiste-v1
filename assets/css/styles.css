@@ -649,3 +649,6 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .voucher-msg--error { color: #B42318 !important; }
 .voucher-applied { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: var(--mint); font-size: 0.95rem; }
 .basket-discount dd { color: var(--green-dark); }
+
+/* Small print on shop cards */
+.shop-note { margin: 0; padding: 10px 12px; border-radius: 12px; background: var(--ground); font-size: 0.85rem !important; line-height: 1.5; color: var(--muted); }
