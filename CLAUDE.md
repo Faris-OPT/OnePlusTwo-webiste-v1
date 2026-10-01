@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 19)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 22)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -67,6 +67,7 @@ Read this before making any changes. It records decisions made while designing a
 - V1 checkout: the order is sent through Formspree (form ID `xrpbvovl`, set in `OPT_CONFIG.orderFormId` in `main.js`) to accounts@oneplustwo.co.uk, with an order reference like OPT-YYMMDD-XXXX. The confirmation screen shows the total and the Viva payment link (https://pay.vivawallet.com/epos-anytime), and Formspree's autoresponse emails the link to the customer.
 - V2 (planned): take payment directly with the Viva payment gateway.
 - The basket is stored in localStorage under `opt-basket`.
+- Voucher codes: listed in `OPT_CONFIG.vouchers` in `main.js` as SHA-256 hashes of `opt-voucher:` + the code in capitals (never the plain code). Each has `type` ('percent' or 'fixed'), `value` (percent, or pence for fixed) and a `label` such as '10% off'. Discounts apply to products before VAT; delivery stays £4.65. Orders include `voucher_code`, `discount` and a full `order_summary` receipt.
 
 ## Seasonal content
 
