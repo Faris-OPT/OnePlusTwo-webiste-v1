@@ -17,12 +17,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#04D98B">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico?v=19" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png?v=19">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=19">
 <link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/styles.css?v=12">
+<link rel="stylesheet" href="/assets/css/styles.css?v=19">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -37,6 +37,7 @@
         <li><a href="/products">Products</a></li>
         <li><a href="/software">Software</a></li>
         <li><a href="/hardware" aria-current="page">Hardware</a></li>
+        <li><a href="/shop">Shop</a></li>
         <li><a href="/pricing">Pricing</a></li>
         <li><a href="/customers">Customers</a></li>
         <li><a href="/why-us">Why us?</a></li>
@@ -51,14 +52,53 @@
 </header>
 <main id="main">
 <section class="page-head">
-  <div class="container"><div class="stack"><h1 class="h1--page">Hardware that suits your business</h1><p class="lead">Everything you need to take orders and payments, kept in stock and set up for you. We supply trusted brands built for busy counters, and we'll make sure every piece works together from day one.</p><div class="stack stack--sm" style="padding-top: 8px;"><span class="label">Brands we stock</span><div class="brand-row"><span class="brand-chip">SUNMI</span><span class="brand-chip">iMin</span><span class="brand-chip">PAX</span></div></div></div></div>
+  <div class="container"><div class="stack"><h1 class="h1--page">Hardware that suits your business</h1><p class="lead">Everything you need to take orders and payments, kept in stock and set up for you. We supply trusted brands built for busy counters, and we'll make sure every piece works together from day one.</p><div class="stack stack--sm" style="padding-top: 8px;"><span class="label">Brands we stock</span><ul class="brand-row"><li class="brand-chip"><img src="/assets/img/brands/sunmi.png" alt="Sunmi"></li><li class="brand-chip"><img src="/assets/img/brands/imin.png" alt="iMin"></li><li class="brand-chip"><img class="brand-logo-tall" src="/assets/img/brands/pax.png" alt="PAX"></li></ul></div></div></div>
 </section><section class="section section--flush-top"><div class="container">
-<div class="callout" style="background: var(--mint); border: 0;"><div class="stack stack--sm"><h3>A complete till kit for £499 + VAT</h3><p>A Sunmi or tablet-based terminal, 80mm receipt printer, cash drawer and integrated card machine, all set up and ready to go. A one-off cost, separate from your monthly plan.</p></div><a class="btn btn--primary " href="/book-a-demo">Ask about a kit</a></div>
+<div class="callout" style="background: var(--mint); border: 0;"><div class="stack stack--sm"><h3>A complete till kit for £499 + VAT</h3><p>A desktop POS or tablet-based terminal, 80mm receipt printer, cash drawer and integrated card machine, all set up and ready to go. A one-off cost, separate from your monthly plan.</p></div><div class="btn-row"><a class="btn btn--primary " href="/shop">Order online</a><a class="btn btn--outline " href="/book-a-demo">Ask about a kit</a></div></div>
 </div></section>
+<section class="section section--flush-top"><div class="container stack stack--lg">
+<div class="stack stack--sm"><h2>Tills we stock</h2><p>Desktop, tablet and handheld tills from Sunmi and iMin, set up and ready to use with OnePlusTwo.</p></div>
+<div class="grid grid-3 till-grid"><article class="till-card" data-variants>
+  <div class="till-img"><img src="/assets/img/products/sunmi-d3-pro.webp" alt="Sunmi D3 Pro desktop POS with a single screen" loading="lazy"></div>
+  <span class="label">Sunmi · Desktop POS</span>
+  <h3>Sunmi D3 Pro</h3>
+  <div class="variant-switch" role="group" aria-label="Sunmi D3 Pro options"><button type="button" class="variant-btn" data-src="/assets/img/products/sunmi-d3-pro.webp" data-alt="Sunmi D3 Pro desktop POS with a single screen" aria-pressed="true">Single screen</button><button type="button" class="variant-btn" data-src="/assets/img/products/sunmi-d3-pro-dual.webp" data-alt="Sunmi D3 Pro desktop POS with a customer-facing second screen" aria-pressed="false">Dual screen</button></div>
+  <p>A sleek, sturdy countertop till with a large touchscreen, built for busy counters. Add a customer-facing second screen as an optional extra, so people can check their order as it's rung through.</p>
+  <a class="btn btn--primary " href="/book-a-demo" aria-label="Enquire now about the Sunmi D3 Pro">Enquire now</a>
+</article><article class="till-card" data-variants>
+  <div class="till-img"><img src="/assets/img/products/sunmi-p3-mix-tablet.webp" alt="Sunmi P3 Mix tablet POS" loading="lazy"></div>
+  <span class="label">Sunmi · Tablet POS</span>
+  <h3>Sunmi P3 Mix</h3>
+  <div class="variant-switch" role="group" aria-label="Sunmi P3 Mix options"><button type="button" class="variant-btn" data-src="/assets/img/products/sunmi-p3-mix-tablet.webp" data-alt="Sunmi P3 Mix tablet POS" aria-pressed="true">Tablet</button><button type="button" class="variant-btn" data-src="/assets/img/products/sunmi-p3-mix-cradle.webp" data-alt="Sunmi P3 Mix tablet POS on its optional cradle base" aria-pressed="false">With cradle</button></div>
+  <p>A tablet till with a built-in receipt printer that goes wherever you need it, from the counter to the table. Add the optional cradle base to use it as a desktop POS.</p>
+  <a class="btn btn--primary " href="/book-a-demo" aria-label="Enquire now about the Sunmi P3 Mix">Enquire now</a>
+</article><article class="till-card" data-variants>
+  <div class="till-img"><img src="/assets/img/products/sunmi-v3-plus.webp" alt="Sunmi V3 Plus handheld POS" loading="lazy"></div>
+  <span class="label">Sunmi · Handheld POS</span>
+  <h3>Sunmi V3 Plus</h3>
+  
+  <p>A pocket-sized till with a built-in receipt printer, for taking orders and payments at the table, in the queue or at events.</p>
+  <a class="btn btn--primary " href="/book-a-demo" aria-label="Enquire now about the Sunmi V3 Plus">Enquire now</a>
+</article><article class="till-card" data-variants>
+  <div class="till-img"><img src="/assets/img/products/imin-swan-2-pro.webp" alt="iMin Swan 2 Pro desktop POS with a single screen" loading="lazy"></div>
+  <span class="label">iMin · Desktop POS</span>
+  <h3>iMin Swan 2 Pro</h3>
+  <div class="variant-switch" role="group" aria-label="iMin Swan 2 Pro options"><button type="button" class="variant-btn" data-src="/assets/img/products/imin-swan-2-pro.webp" data-alt="iMin Swan 2 Pro desktop POS with a single screen" aria-pressed="true">Single screen</button><button type="button" class="variant-btn" data-src="/assets/img/products/imin-swan-2-pro-dual.webp" data-alt="iMin Swan 2 Pro desktop POS with a customer-facing second screen" aria-pressed="false">Dual screen</button><button type="button" class="variant-btn" data-src="/assets/img/products/imin-swan-2-pro-printer.webp" data-alt="iMin Swan 2 Pro desktop POS with a printer built into the stand" aria-pressed="false">With printer</button></div>
+  <p>A reliable countertop till with a crisp touchscreen. Choose a single or dual screen, and add a printer built into the stand to keep your counter tidy.</p>
+  <a class="btn btn--primary " href="/book-a-demo" aria-label="Enquire now about the iMin Swan 2 Pro">Enquire now</a>
+</article><article class="till-card" data-variants>
+  <div class="till-img"><img src="/assets/img/products/imin-swan-3-pro.webp" alt="iMin Swan 3 Pro desktop POS with a single screen" loading="lazy"></div>
+  <span class="label">iMin · Desktop POS</span>
+  <h3>iMin Swan 3 Pro</h3>
+  <div class="variant-switch" role="group" aria-label="iMin Swan 3 Pro options"><button type="button" class="variant-btn" data-src="/assets/img/products/imin-swan-3-pro.webp" data-alt="iMin Swan 3 Pro desktop POS with a single screen" aria-pressed="true">Single screen</button><button type="button" class="variant-btn" data-src="/assets/img/products/imin-swan-3-pro-dual.webp" data-alt="iMin Swan 3 Pro desktop POS with a customer-facing second screen" aria-pressed="false">Dual screen</button></div>
+  <p>iMin's latest countertop till, with a sleek, modern design and a large touchscreen. Add a customer-facing second screen as an optional extra.</p>
+  <a class="btn btn--primary " href="/book-a-demo" aria-label="Enquire now about the iMin Swan 3 Pro">Enquire now</a>
+</article></div>
+</div></section>
+
 <section class="section section--flush-top"><div class="container">
-<div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">Tills</h2><p>Choose a fixed till for the counter, a tablet you can carry, or a mix of both. We stock tills from Sunmi and iMin.</p></div><div class="grid grid-3 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Desktop POS"><img src="/assets/img/illustrations/till.svg" alt="" width="400" height="300"></div><h3>Desktop POS</h3><p>A sturdy countertop till with a customer-facing second screen, so people can check their order as it's rung through. Sleek enough to suit any counter.</p></div><div class="card card--product"><div class="photo photo--illus " data-photo="Tablet POS"><img src="/assets/img/illustrations/tablet.svg" alt="" width="400" height="300"></div><h3>Tablet POS</h3><p>A compact, portable till that saves counter space and lets staff take orders at the table for quicker, more personal service.</p></div><div class="card card--product"><div class="photo photo--illus " data-photo="Handheld devices"><img src="/assets/img/illustrations/handheld.svg" alt="" width="400" height="300"></div><h3>Handheld devices</h3><p>Pocket-sized devices for taking orders and payments at the table, in the queue or around a festival site.</p></div></div></div>
 <div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">Taking payments</h2><p>Integrated card terminals, including PAX devices, that receive the amount straight from your till. Or skip the card machine and let customers tap to pay on your till itself.</p></div><div class="grid grid-2 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Card terminals"><img src="/assets/img/illustrations/card.svg" alt="" width="400" height="300"></div><h3>Card terminals</h3><p>Chip, PIN and contactless payments with the total sent automatically from the till, so there's nothing to type in and fewer mistakes.</p><a class="text-link" href="/integrated-payments">About integrated payments</a></div><div class="card card--product"><div class="photo photo--illus " data-photo="Tap to pay on your till"><img src="/assets/img/illustrations/tap.svg" alt="" width="400" height="300"></div><h3>Tap to pay on your till</h3><p>Turn your till into a payment terminal and accept contactless cards and mobile wallets with no extra hardware.</p></div></div></div>
-<div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">Printing and cash</h2><p>Receipts for customers, tickets for the kitchen and a secure home for your cash. Going cashless? Skip these and send digital receipts instead.</p></div><div class="grid grid-2 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Receipt and kitchen printers"><img src="/assets/img/illustrations/printer.svg" alt="" width="400" height="300"></div><h3>Receipt and kitchen printers</h3><p>Fast 80mm thermal printers for customer receipts and clear kitchen tickets.</p></div><div class="card card--product"><div class="photo photo--illus " data-photo="Cash drawers"><img src="/assets/img/illustrations/drawer.svg" alt="" width="400" height="300"></div><h3>Cash drawers</h3><p>A secure, sturdy cash drawer that opens from the till and makes cashing up at the end of the day simpler.</p></div></div></div>
+<div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">Printing and cash</h2><p>Receipts for customers, tickets for the kitchen and a secure home for your cash.</p></div><div class="grid grid-2 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Receipt and kitchen printers"><img src="/assets/img/illustrations/printer.svg" alt="" width="400" height="300"></div><h3>Receipt and kitchen printers</h3><p>Fast 80mm thermal printers for customer receipts and clear kitchen tickets.</p></div><div class="card card--product"><div class="photo photo--illus " data-photo="Cash drawers"><img src="/assets/img/illustrations/drawer.svg" alt="" width="400" height="300"></div><h3>Cash drawers</h3><p>A secure, sturdy cash drawer that opens from the till and makes cashing up at the end of the day simpler.</p></div></div></div>
 <div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">For the kitchen</h2><p>Get orders to your kitchen team clearly and in the right order, on screen, on paper or both.</p></div><div class="grid grid-2 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Kitchen display screens"><img src="/assets/img/illustrations/kds.svg" alt="" width="400" height="300"></div><h3>Kitchen display screens</h3><p>Orders appear on screen the moment they're placed, routed to the right station.</p><a class="text-link" href="/kitchen-display-screens">About kitchen display screens</a></div><div class="card card--product"><div class="photo photo--illus " data-photo="Self-service kiosks"><img src="/assets/img/illustrations/kiosk.svg" alt="" width="400" height="300"></div><h3>Self-service kiosks</h3><p>Let customers order and pay themselves, with countertop, wall-mounted and floor-standing options.</p><a class="text-link" href="/self-service-kiosks">About self-service kiosks</a></div></div></div>
 <div class="hw-group"><div class="stack stack--sm"><h2 class="h2--sm" style="font-size: clamp(1.6rem, 1vw + 1.2rem, 2.1rem);">For retail</h2><p>Extras that make checkouts quicker and stock more accurate in shops.</p></div><div class="grid grid-2 grid--top" style="gap: 20px;"><div class="card card--product"><div class="photo photo--illus " data-photo="Barcode scanners"><img src="/assets/img/illustrations/scanner.svg" alt="" width="400" height="300"></div><h3>Barcode scanners</h3><p>Scan products at the till for fast, accurate checkouts with fewer errors.</p></div><div class="card card--product"><div class="photo photo--illus " data-photo="Weighing scales"><img src="/assets/img/illustrations/scale.svg" alt="" width="400" height="300"></div><h3>Weighing scales</h3><p>Connect scales to your till for accurate weights, pricing and portion control.</p></div></div></div>
 </div></section>
@@ -75,12 +115,12 @@
         <div class="social-links" aria-label="OnePlusTwo on social media"><a href="https://www.instagram.com/oneplustwoepos" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/oneplustwoepos" target="_blank" rel="noopener">Facebook</a><a href="https://www.linkedin.com/company/oneplustwo" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.tiktok.com/@oneplustwoepos" target="_blank" rel="noopener">TikTok</a></div>
       </div>
       <div class="footer-col"><h2>Who we serve</h2><ul><li><a href="/restaurants">Restaurants</a></li><li><a href="/cafes">Cafes</a></li><li><a href="/takeaways">Takeaways</a></li><li><a href="/events-and-festivals">Events and festivals</a></li><li><a href="/retail">Retail</a></li></ul></div>
-      <div class="footer-col"><h2>Products</h2><ul><li><a href="/self-service-kiosks">Self-service kiosks</a></li><li><a href="/point-of-sale">Point of sale</a></li><li><a href="/integrated-payments">Integrated payments</a></li><li><a href="/kitchen-display-screens">Kitchen display screens</a></li><li><a href="/collection-display-screens">Collection display screens</a></li><li><a href="/online-ordering">Online ordering</a></li><li><a href="/hardware">Hardware</a></li></ul></div>
+      <div class="footer-col"><h2>Products</h2><ul><li><a href="/self-service-kiosks">Self-service kiosks</a></li><li><a href="/point-of-sale">Point of sale</a></li><li><a href="/integrated-payments">Integrated payments</a></li><li><a href="/kitchen-display-screens">Kitchen display screens</a></li><li><a href="/collection-display-screens">Collection display screens</a></li><li><a href="/online-ordering">Online ordering</a></li><li><a href="/hardware">Hardware</a></li><li><a href="/shop">Order hardware</a></li></ul></div>
       <div class="footer-col"><h2>Company</h2><ul><li><a href="/why-us">Why us?</a></li><li><a href="/software">Software</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/integrations">Integrations</a></li><li><a href="/customers">Customers</a></li><li><a href="/book-a-demo">Book a demo</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 OnePlusTwo</span><span class="footer-legal"><a href="/privacy-policy">Privacy policy</a><button type="button" class="link-button" data-cookie-settings>Cookie settings</button></span></div>
+    <div class="footer-bottom"><span>© 2026 OnePlusTwo</span><span class="footer-legal"><a href="/privacy-policy">Privacy policy</a><a href="/terms-of-sale">Terms of sale</a><button type="button" class="link-button" data-cookie-settings>Cookie settings</button></span></div>
   </div>
 </footer>
-<script src="/assets/js/main.js?v=12" defer></script>
+<script src="/assets/js/main.js?v=19" defer></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 7)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 19)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -41,7 +41,7 @@ Read this before making any changes. It records decisions made while designing a
 
 - Plans, all per month + VAT: Starter £49, Essentials £79 (marked "Most popular"), Premium £109.
 - Extra licences for existing customers: £19 a month + VAT each, for any additional till, kitchen display screen, collection screen or self-service kiosk.
-- Self-service kiosk: £59 a month + VAT software (£19 if already on a plan), hardware from £649 + VAT one-off.
+- Self-service kiosk: £59 a month + VAT software (£19 if already on a plan), hardware from £749 + VAT one-off (22-inch package £749, 27-inch package £1,049).
 - All prices, including hardware, are shown + VAT.
 - Every plan includes 7-day support.
 - Enquiries are answered within 2 hours.
@@ -59,6 +59,15 @@ Read this before making any changes. It records decisions made while designing a
 - "No contracts", "free trial" or "commission-free" claims.
 - The old site's "3 steps" hardware layout.
 
+## Hardware shop (/shop)
+
+- Products: complete till kit £499 + VAT (choice of desktop POS or tablet POS terminal), 22-inch self-service kiosk package with stand and printer £749 + VAT, 27-inch self-service kiosk package with stand and printer £1,049 + VAT, 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence).
+- Delivery: next day delivery, a flat £4.65 (no VAT added on top). VAT at 20% is added to product prices only.
+- Terms of sale are at `/terms-of-sale`, linked in the footer and in the checkout agreement box.
+- V1 checkout: the order is sent through Formspree (form ID `xrpbvovl`, set in `OPT_CONFIG.orderFormId` in `main.js`) to accounts@oneplustwo.co.uk, with an order reference like OPT-YYMMDD-XXXX. The confirmation screen shows the total and the Viva payment link (https://pay.vivawallet.com/epos-anytime), and Formspree's autoresponse emails the link to the customer.
+- V2 (planned): take payment directly with the Viva payment gateway.
+- The basket is stored in localStorage under `opt-basket`.
+
 ## Seasonal content
 
 - The homepage has a "Get ready for the busy season" section (kiosks, events and festivals, kitchen display screens). Elements with `data-season="halloween"` show January to October and `data-season="christmas"` in November and December, switched automatically in `main.js`. Remove or replace the section after Christmas.
@@ -75,9 +84,18 @@ Read this before making any changes. It records decisions made while designing a
 - Delivery apps: Uber Eats, Deliveroo, Just Eat. Accounting: Xero.
 - Partner logos are in `assets/img/partners/`.
 
+## Cookies and consent
+
+- A cookie banner (built in `main.js`) asks visitors to accept, reject or choose. Choices are stored in localStorage under `opt-cookie-consent`, and the footer "Cookie settings" button reopens it.
+- tawk.to is set up (`tawkSrc` in `OPT_CONFIG`). Google Analytics is not yet (`gaId` is empty).
+- Google Analytics, tawk.to live chat and the Calendly booking calendar only load after consent. Their IDs go in `OPT_CONFIG` at the top of `main.js` (`gaId` and `tawkSrc`). Never add their scripts directly to pages.
+- If a new third-party service is added, add it to the banner's categories and to the privacy policy.
+
 ## Connected services
 
-- Enquiry form: Formspree, form ID `xrpbkykb`, on `/book-a-demo`.
+- Enquiry form: Formspree, form ID `xrpbkykb`, on `/book-a-demo`. It includes an optional, unticked marketing consent checkbox (`marketing_consent`).
+- CRM: HubSpot (enquiries and marketing emails).
+- Company: ONE PLUS TWO EPOS LIMITED, company number 15177821, registered in England and Wales. Registered office: Business Innovation Centre, Binley Business Park, Harry Weston Road, Coventry, CV3 2TX. These details appear in the privacy policy only, not the footer.
 - Demo bookings: Calendly, `https://calendly.com/hello-oneplustwo/oneplustwo-website-inquiry-demo`, embedded on `/book-a-demo`. Demos are 30 minutes.
 - Analytics: Vercel Web Analytics.
 
