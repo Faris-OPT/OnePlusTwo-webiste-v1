@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 22)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 26)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -46,8 +46,11 @@ Read this before making any changes. It records decisions made while designing a
 - Every plan includes 7-day support.
 - Enquiries are answered within 2 hours.
 - Short-term options are available for one-off events and festivals.
-- Complete till kit: £499 + VAT one-off (Sunmi or tablet terminal, 80mm printer, cash drawer, integrated card machine).
-- Kitchen display screens: included in Essentials and Premium.
+- Complete till kit, one-off: Sunmi P3 Mix tablet £399 + VAT (chip & PIN), Sunmi V3 Mix tablet £379 + VAT (SoftPOS, contactless only), desktop POS £499 + VAT (Sunmi D3 Pro, iMin Swan 2 Pro or iMin Swan 3 Pro). Customer display screen for dual-screen desktops: £119 + VAT (D3 Pro), £89 + VAT (Swan 2 Pro); Swan 3 Pro has no dual screen.
+- Warranty: all hardware 12 months manufacturer's warranty; iMin systems 36 months.
+- Sunmi P2SE is the card machine we use; no public price yet (shop shows "Price on request").
+- Kitchen display screens are NOT in any plan: £19 a month + VAT extra licence per screen. Delivery app integrations (Uber Eats, Deliveroo, Just Eat) may cost extra (asterisk on Essentials "3rd Party Integrations").
+- Enterprise band (over £1m a year or multi-site) on Home and Pricing links to `/book-a-demo?enquiry=multi-site#enquiry-form`, which preselects the business type and changes the email subject.
 - Online ordering website: included in Essentials and Premium (branded site, collection, delivery, online payments, QR code table ordering, orders straight to till and kitchen).
 - Collection display screens: £19 a month + VAT per screen. Customers supply their own TV or monitor.
 
@@ -61,11 +64,12 @@ Read this before making any changes. It records decisions made while designing a
 
 ## Hardware shop (/shop)
 
-- Products: complete till kit £499 + VAT (choice of desktop POS or tablet POS terminal), 22-inch self-service kiosk package with stand and printer £749 + VAT, 27-inch self-service kiosk package with stand and printer £1,049 + VAT, 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence).
+- Products (shop.html, one card each with an option dropdown; option `data-img` swaps the photo; deep links `/shop?product=<id>&option=<value>#product-<id>`): complete till kit (tablet/desktop models above), customer display screen, kitchen display screen £399 + VAT (entry level, recommended for up to 150 orders a day) or £549 + VAT (premium), self-service kiosk package with stand and printer (22-inch £749 + VAT or 27-inch £1,049 + VAT, one dropdown), Sunmi P2SE (price on request), 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence); options can carry their own prices.
 - Delivery: next day delivery, a flat £4.65 (no VAT added on top). VAT at 20% is added to product prices only.
 - Terms of sale are at `/terms-of-sale`, linked in the footer and in the checkout agreement box.
 - V1 checkout: the order is sent through Formspree (form ID `xrpbvovl`, set in `OPT_CONFIG.orderFormId` in `main.js`) to accounts@oneplustwo.co.uk, with an order reference like OPT-YYMMDD-XXXX. The confirmation screen shows the total and the Viva payment link (https://pay.vivawallet.com/epos-anytime), and Formspree's autoresponse emails the link to the customer.
 - V2 (planned): take payment directly with the Viva payment gateway.
+- Hardware prices never include software. The till kit, kitchen display screen and kiosk cards carry "Software not included" small print (the `shop-note` line on each card), the checkout agreement mentions it, and section 4 of the terms of sale explains it. Keep this wording in place whenever products or prices change.
 - The basket is stored in localStorage under `opt-basket`.
 - Voucher codes: listed in `OPT_CONFIG.vouchers` in `main.js` as SHA-256 hashes of `opt-voucher:` + the code in capitals (never the plain code). Each has `type` ('percent' or 'fixed'), `value` (percent, or pence for fixed) and a `label` such as '10% off'. Discounts apply to products before VAT; delivery stays £4.65. Orders include `voucher_code`, `discount` and a full `order_summary` receipt.
 
@@ -80,7 +84,7 @@ Read this before making any changes. It records decisions made while designing a
 ## Products and partners
 
 - Products: self-service kiosks, point of sale, integrated payments, kitchen display screens, collection display screens, online ordering website. Each has its own page, linked from `/products`.
-- Hardware brands stocked: Sunmi, iMin (tills) and PAX (card terminals). Keep hardware at brand level, not specific models.
+- Hardware brands stocked: Sunmi, iMin (tills) and PAX (card terminals). Specific models now appear on /hardware and /shop (D3 Pro, P3 Mix, V3 Mix, P2SE, Swan 2 Pro, Swan 3 Pro).
 - Payment providers: Dojo, Viva.com, DNA Payments, Paynt.
 - Delivery apps: Uber Eats, Deliveroo, Just Eat. Accounting: Xero.
 - Partner logos are in `assets/img/partners/`.
