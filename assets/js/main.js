@@ -499,6 +499,20 @@ var OPT_CONFIG = {
         if (disp) disp.textContent = '£' + (p / 100).toLocaleString('en-GB', { maximumFractionDigits: 0 });
         var o = optSel.selectedOptions[0];
         if (cardImg && o && o.getAttribute('data-img')) cardImg.src = o.getAttribute('data-img');
+        resetViews();
+      });
+      var viewBox = card.querySelector('[data-shop-views]');
+      function resetViews() {
+        if (!viewBox) return;
+        viewBox.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-view') === 'img')); });
+      }
+      if (viewBox) viewBox.querySelectorAll('.variant-btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var o = optSel.selectedOptions[0];
+          var src = o && o.getAttribute(b.getAttribute('data-view') === 'cradle' ? 'data-cradle' : 'data-img');
+          if (src && cardImg) cardImg.src = src;
+          viewBox.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        });
       });
       /* Deep links from the hardware page: /shop?product=till-kit&option=... */
       var qs = new URLSearchParams(window.location.search);
