@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 27)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 28)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
