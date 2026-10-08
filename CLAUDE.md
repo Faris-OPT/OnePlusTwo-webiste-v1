@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 26)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 27)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -46,9 +46,9 @@ Read this before making any changes. It records decisions made while designing a
 - Every plan includes 7-day support.
 - Enquiries are answered within 2 hours.
 - Short-term options are available for one-off events and festivals.
-- Complete till kit, one-off: Sunmi P3 Mix tablet £399 + VAT (chip & PIN), Sunmi V3 Mix tablet £379 + VAT (SoftPOS, contactless only), desktop POS £499 + VAT (Sunmi D3 Pro, iMin Swan 2 Pro or iMin Swan 3 Pro). Customer display screen for dual-screen desktops: £119 + VAT (D3 Pro), £89 + VAT (Swan 2 Pro); Swan 3 Pro has no dual screen.
+- Complete till kit, one-off: desktop POS £499 + VAT (Sunmi D3 Pro, iMin Swan 2 Pro or iMin Swan 3 Pro, chosen in one dropdown). "Additional Handheld POS" (separate shop listing, dropdown): Sunmi P3 Mix £399 + VAT (chip & PIN) or Sunmi V3 Mix £379 + VAT (SoftPOS, contactless only); both have Tablet / With cradle photo views. Customer display screen for dual-screen desktops: £119 + VAT (D3 Pro), £89 + VAT (Swan 2 Pro); Swan 3 Pro has no dual screen.
 - Warranty: all hardware 12 months manufacturer's warranty; iMin systems 36 months.
-- Sunmi P2SE is the card machine we use; no public price yet (shop shows "Price on request").
+- Sunmi P2SE card machine: £189 + VAT.
 - Kitchen display screens are NOT in any plan: £19 a month + VAT extra licence per screen. Delivery app integrations (Uber Eats, Deliveroo, Just Eat) may cost extra (asterisk on Essentials "3rd Party Integrations").
 - Enterprise band (over £1m a year or multi-site) on Home and Pricing links to `/book-a-demo?enquiry=multi-site#enquiry-form`, which preselects the business type and changes the email subject.
 - Online ordering website: included in Essentials and Premium (branded site, collection, delivery, online payments, QR code table ordering, orders straight to till and kitchen).
@@ -64,7 +64,7 @@ Read this before making any changes. It records decisions made while designing a
 
 ## Hardware shop (/shop)
 
-- Products (shop.html, one card each with an option dropdown; option `data-img` swaps the photo; deep links `/shop?product=<id>&option=<value>#product-<id>`): complete till kit (tablet/desktop models above), customer display screen, kitchen display screen £399 + VAT (entry level, recommended for up to 150 orders a day) or £549 + VAT (premium), self-service kiosk package with stand and printer (22-inch £749 + VAT or 27-inch £1,049 + VAT, one dropdown), Sunmi P2SE (price on request), 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence); options can carry their own prices.
+- Products (shop.html, one card each with an option dropdown; option `data-img` swaps the photo; deep links `/shop?product=<id>&option=<value>#product-<id>`): complete till kit (tablet/desktop models above), customer display screen, additional handheld POS, kitchen display screen £399 + VAT (entry level, recommended for up to 150 orders a day) or £549 + VAT (premium), self-service kiosk package with stand and printer (22-inch £749 + VAT or 27-inch £1,049 + VAT, one dropdown), Sunmi P2SE (£189 + VAT), 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence); options can carry their own prices.
 - Delivery: next day delivery, a flat £4.65 (no VAT added on top). VAT at 20% is added to product prices only.
 - Terms of sale are at `/terms-of-sale`, linked in the footer and in the checkout agreement box.
 - V1 checkout: the order is sent through Formspree (form ID `xrpbvovl`, set in `OPT_CONFIG.orderFormId` in `main.js`) to accounts@oneplustwo.co.uk, with an order reference like OPT-YYMMDD-XXXX. The confirmation screen shows the total and the Viva payment link (https://pay.vivawallet.com/epos-anytime), and Formspree's autoresponse emails the link to the customer.
