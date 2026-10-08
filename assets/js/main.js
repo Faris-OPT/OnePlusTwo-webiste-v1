@@ -66,10 +66,20 @@ var OPT_CONFIG = {
       input.addEventListener('input', function () { if (input.getAttribute('aria-invalid')) showFieldError(input); });
     });
 
+    /* Links like /book-a-demo?enquiry=multi-site preselect the business type, and those
+       enquiries get their own email subject so the team can spot them. */
+    var bizType = document.getElementById('business-type');
+    var subjectInput = form.querySelector('input[name="_subject"]');
+    var MULTI_SITE = 'Multi-site or high-volume business';
+    if (bizType && /[?&]enquiry=multi-site(&|$)/.test(window.location.search)) bizType.value = MULTI_SITE;
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.textContent = '';
       status.classList.remove('form-status--error');
+      if (subjectInput && bizType) {
+        subjectInput.value = bizType.value === MULTI_SITE ? 'New multi-site / high-volume enquiry' : 'New website enquiry';
+      }
 
       var firstInvalid = null;
       form.querySelectorAll('input, textarea, select').forEach(function (input) {
@@ -354,6 +364,37 @@ var OPT_CONFIG = {
     });
   });
 
+  /* ---------- Desktop POS model picker (Hardware page) ---------- */
+  document.querySelectorAll('[data-model-card]').forEach(function (card) {
+    var sel = card.querySelector('[data-model-select]');
+    var img = card.querySelector('.till-img img');
+    var box = card.querySelector('.variant-switch');
+    var buy = card.querySelector('[data-buy]');
+    var desc = card.querySelector('[data-model-desc]');
+    function show(src, alt) { img.src = src; img.alt = alt; }
+    function apply() {
+      var o = sel.selectedOptions[0];
+      var vs = JSON.parse(o.getAttribute('data-variants'));
+      box.innerHTML = '';
+      vs.forEach(function (v, i) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'variant-btn'; b.textContent = v[0];
+        b.setAttribute('aria-pressed', String(i === 0));
+        b.addEventListener('click', function () {
+          box.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          show(v[1], v[2]);
+        });
+        box.appendChild(b);
+      });
+      show(vs[0][1], vs[0][2]);
+      buy.href = '/shop?product=till-kit&option=' + encodeURIComponent(o.getAttribute('data-shop-option')) + '#product-till-kit';
+      buy.setAttribute('aria-label', 'Buy the ' + o.value);
+      desc.textContent = o.getAttribute('data-desc');
+    }
+    sel.addEventListener('change', apply);
+    apply();
+  });
+
   /* ---------- Hardware shop: basket and checkout ---------- */
   var shop = document.querySelector('[data-basket-items]');
   if (shop) {
@@ -452,15 +493,27 @@ var OPT_CONFIG = {
         var o = optSel && optSel.selectedOptions[0];
         return o && o.getAttribute('data-price') ? parseInt(o.getAttribute('data-price'), 10) : parseInt(card.getAttribute('data-price'), 10);
       };
+      var cardImg = card.querySelector('[data-shop-img]');
       if (optSel) optSel.addEventListener('change', function () {
-        var p = priceOf(); card.querySelector('[data-price-display]').textContent = '£' + (p / 100).toLocaleString('en-GB', { maximumFractionDigits: 0 });
+        var p = priceOf(); var disp = card.querySelector('[data-price-display]');
+        if (disp) disp.textContent = '£' + (p / 100).toLocaleString('en-GB', { maximumFractionDigits: 0 });
+        var o = optSel.selectedOptions[0];
+        if (cardImg && o && o.getAttribute('data-img')) cardImg.src = o.getAttribute('data-img');
       });
+      /* Deep links from the hardware page: /shop?product=till-kit&option=... */
+      var qs = new URLSearchParams(window.location.search);
+      if (optSel && qs.get('product') === card.getAttribute('data-product') && qs.get('option')) {
+        Array.prototype.forEach.call(optSel.options, function (op) { if (op.value === qs.get('option')) optSel.value = op.value; });
+        optSel.dispatchEvent(new Event('change'));
+      }
       card.querySelectorAll('.qty-btn').forEach(function (b) {
         b.addEventListener('click', function () {
           qty.value = Math.min(20, Math.max(1, (parseInt(qty.value, 10) || 1) + parseInt(b.getAttribute('data-qty'), 10)));
         });
       });
-      card.querySelector('[data-add]').addEventListener('click', function () {
+      var addBtn = card.querySelector('[data-add]');
+      if (!addBtn) return;
+      addBtn.addEventListener('click', function () {
         var opt = card.querySelector('[data-option]');
         var item = { id: card.getAttribute('data-product'), name: card.getAttribute('data-name'), price: priceOf(),
           option: opt ? opt.value : '', qty: Math.min(20, Math.max(1, parseInt(qty.value, 10) || 1)) };
