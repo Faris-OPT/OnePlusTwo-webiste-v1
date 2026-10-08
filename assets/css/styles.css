@@ -664,7 +664,7 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 
 /* ---------- Delivery app highlight (Home) ---------- */
 .delivery-logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
-.delivery-logos li { background: var(--white); border-radius: var(--radius); min-height: 104px; display: flex; align-items: center; justify-content: center; padding: 20px 28px; }
+.delivery-logos li { background: transparent; min-height: 104px; display: flex; align-items: center; justify-content: center; padding: 20px 28px; }
 .delivery-logos img { max-height: 52px; max-width: 70%; width: auto; object-fit: contain; }
 
 /* ---------- Pricing notes ---------- */
