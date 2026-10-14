@@ -699,7 +699,7 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .logo-marquee .logo-tile--img img { height: 64px; max-width: 180px; max-height: none; }
 @keyframes logo-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 @media (max-width: 900px) {
-  .logo-marquee .logo-track { display: flex; gap: 40px; padding-right: 40px; animation-duration: 24s; }
+  .logo-marquee .logo-track { display: flex; gap: 40px; padding-right: 40px; animation-duration: 13s; }
   .logo-marquee .logo-tile--img img { height: 48px; width: auto; max-width: 140px; }
 }
 @media (prefers-reduced-motion: reduce) {
