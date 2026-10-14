@@ -512,18 +512,25 @@ var OPT_CONFIG = {
         resetViews();
       });
       var viewBox = card.querySelector('[data-shop-views]');
+      /* Photo views (e.g. Tablet / With cradle, Front / Side) come from the selected option's data-views */
       function resetViews() {
         if (!viewBox) return;
-        viewBox.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-view') === 'img')); });
-      }
-      if (viewBox) viewBox.querySelectorAll('.variant-btn').forEach(function (b) {
-        b.addEventListener('click', function () {
-          var o = optSel.selectedOptions[0];
-          var src = o && o.getAttribute(b.getAttribute('data-view') === 'cradle' ? 'data-cradle' : 'data-img');
-          if (src && cardImg) cardImg.src = src;
-          viewBox.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        var o = optSel && optSel.selectedOptions[0];
+        var views = o && o.getAttribute('data-views') ? JSON.parse(o.getAttribute('data-views')) : [];
+        viewBox.innerHTML = '';
+        viewBox.hidden = views.length < 2;
+        views.forEach(function (v, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button'; btn.className = 'variant-btn'; btn.textContent = v[0];
+          btn.setAttribute('aria-pressed', String(i === 0));
+          btn.addEventListener('click', function () {
+            if (cardImg) cardImg.src = v[1];
+            viewBox.querySelectorAll('.variant-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+          });
+          viewBox.appendChild(btn);
         });
-      });
+      }
+      resetViews();
       /* Deep links from the hardware page: /shop?product=till-kit&option=... */
       var qs = new URLSearchParams(window.location.search);
       if (optSel && qs.get('product') === card.getAttribute('data-product') && qs.get('option')) {
