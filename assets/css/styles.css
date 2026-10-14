@@ -683,3 +683,27 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .till-model { display: flex; flex-direction: column; gap: 6px; }
 .till-model select { min-height: 46px; }
 .rating .google-g { width: 34px; height: auto; flex: none; }
+/* Shop: full-bleed lifestyle photos (jpg) fill the image box */
+.shop-img:has(img[src$=".jpg"]) { padding: 0; overflow: hidden; }
+.shop-img img[src$=".jpg"] { width: 100%; height: 100%; max-height: none; object-fit: cover; }
+/* Checkout: payment-link note beside Place order */
+.place-order-row { display: flex; align-items: center; gap: 16px 20px; flex-wrap: wrap; }
+.place-order-row .btn { flex: 0 0 auto; }
+.place-order-row p { flex: 1 1 220px; margin: 0; }
+
+/* Homepage "Trusted By" sliding logo carousel */
+.trusted-title { text-align: center; }
+.logo-marquee { display: flex; overflow: hidden; width: 100%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.logo-marquee .logo-track { display: flex; flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 64px; padding-right: 64px; animation: logo-scroll 32s linear infinite; }
+.logo-marquee:hover .logo-track { animation-play-state: paused; }
+.logo-marquee .logo-tile--img img { height: 64px; max-width: 180px; max-height: none; }
+@keyframes logo-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (max-width: 900px) {
+  .logo-marquee .logo-track { display: flex; gap: 40px; padding-right: 40px; animation-duration: 24s; }
+  .logo-marquee .logo-tile--img img { height: 48px; width: auto; max-width: 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee { -webkit-mask-image: none; mask-image: none; }
+  .logo-marquee .logo-track { animation: none; flex-wrap: wrap; justify-content: center; flex: 1 1 auto; padding-right: 0; }
+  .logo-marquee .logo-track[aria-hidden="true"] { display: none; }
+}

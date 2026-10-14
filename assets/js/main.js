@@ -388,7 +388,7 @@ var OPT_CONFIG = {
       });
       show(vs[0][1], vs[0][2]);
       buy.href = '/shop?product=till-kit&option=' + encodeURIComponent(o.getAttribute('data-shop-option')) + '#product-till-kit';
-      buy.setAttribute('aria-label', 'Buy the ' + o.value);
+      buy.setAttribute('aria-label', 'Order the ' + o.value);
       desc.textContent = o.getAttribute('data-desc');
     }
     sel.addEventListener('change', apply);
@@ -399,7 +399,9 @@ var OPT_CONFIG = {
   var shop = document.querySelector('[data-basket-items]');
   if (shop) {
     var BASKET_KEY = 'opt-basket';
-    var DELIVERY = 465; // pence, flat price including VAT
+    var DELIVERY = 995; // pence, flat price including VAT
+    var DELIVERY_KIOSK = 1995; // larger, heavier delivery when the basket has a self-service kiosk
+    function hasKiosk() { return basket.some(function (i) { return /^kiosk/.test(i.id); }); }
     var VAT_RATE = 0.2;
     var money = function (p) { return '£' + (p / 100).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
     var load = function () { try { return JSON.parse(localStorage.getItem(BASKET_KEY)) || []; } catch (e) { return []; } };
@@ -418,8 +420,8 @@ var OPT_CONFIG = {
       var disc = 0;
       if (voucher && sub) disc = voucher.type === 'percent' ? Math.round(sub * voucher.value / 100) : Math.min(voucher.value, sub);
       var net = sub - disc;
-      var del = basket.length ? DELIVERY : 0;
-      var vat = Math.round(net * VAT_RATE); // VAT on products after discount; delivery is a flat £4.65
+      var del = basket.length ? (hasKiosk() ? DELIVERY_KIOSK : DELIVERY) : 0;
+      var vat = Math.round(net * VAT_RATE); // VAT on products after discount; delivery is a flat fee (£9.95, or £19.95 with a kiosk)
       return { sub: sub, disc: disc, net: net, del: del, vat: vat, total: net + del + vat };
     }
     function label(i) { return i.name + (i.option ? ' (' + i.option + ')' : ''); }
@@ -447,6 +449,7 @@ var OPT_CONFIG = {
       voucherApplied.hidden = !voucher; voucherForm.hidden = !!voucher;
       if (voucher) { voucherApplied.querySelector('[data-voucher-code]').textContent = voucher.code; voucherApplied.querySelector('[data-voucher-label]').textContent = voucher.label + ' applied'; }
       totalsEl.querySelector('[data-t="del"]').textContent = money(t.del);
+      document.querySelectorAll('[data-delivery-price]').forEach(function (el) { el.textContent = money(t.del); });
       totalsEl.querySelector('[data-t="vat"]').textContent = money(t.vat);
       totalsEl.querySelector('[data-t="total"]').textContent = money(t.total);
       totalsEl.hidden = false; checkoutLink.hidden = false; checkout.hidden = false;
@@ -499,6 +502,13 @@ var OPT_CONFIG = {
         if (disp) disp.textContent = '£' + (p / 100).toLocaleString('en-GB', { maximumFractionDigits: 0 });
         var o = optSel.selectedOptions[0];
         if (cardImg && o && o.getAttribute('data-img')) cardImg.src = o.getAttribute('data-img');
+        var descEl = card.querySelector('[data-desc]');
+        if (descEl && o && o.hasAttribute('data-desc')) descEl.textContent = o.getAttribute('data-desc');
+        var incEl = card.querySelector('[data-includes]');
+        if (incEl && o && o.hasAttribute('data-includes')) {
+          incEl.innerHTML = '';
+          o.getAttribute('data-includes').split('|').forEach(function (t) { var li = document.createElement('li'); li.textContent = t; incEl.appendChild(li); });
+        }
         resetViews();
       });
       var viewBox = card.querySelector('[data-shop-views]');
