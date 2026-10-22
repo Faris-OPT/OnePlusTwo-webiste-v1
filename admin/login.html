@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Sign in | OnePlusTwo Back Office</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="stylesheet" href="/admin/admin.css?v=1">
+</head>
+<body>
+<div class="login">
+  <div class="login-art">
+    <img class="logo" src="/assets/img/logo-white.png" alt="OnePlusTwo" width="170" height="40">
+    <div class="stack" style="gap:28px">
+      <h2>Run the website from one place.</h2>
+      <p>Edit pages, swap photos, manage shop voucher codes and keep the system status page up to date. For OnePlusTwo staff only.</p>
+      <div class="receipt" aria-hidden="true">
+        <div class="r"><span>BACK OFFICE</span><span id="rc-time"></span></div>
+        <hr>
+        <div>1x Website text</div><div>1x Photos</div><div>1x Voucher codes</div><div>1x System status</div>
+        <hr>
+        <div class="r"><strong>Total</strong><strong>1 tidy website</strong></div>
+        <span class="stamp">Staff only</span>
+      </div>
+    </div>
+    <p class="small">oneplustwo.co.uk/admin</p>
+  </div>
+  <div class="login-form">
+    <div class="login-card">
+      <img class="logo-m" src="/assets/img/logo-dark.png" alt="OnePlusTwo" width="150" height="35">
+      <div class="stack-sm">
+        <h1>Sign in to the back office</h1>
+        <p class="muted">Use your OnePlusTwo work account.</p>
+      </div>
+      <p class="notice notice--warn" id="msg" role="alert" hidden></p>
+      <div class="login-buttons" id="buttons">
+        <a class="btn btn--provider btn--block" id="btn-microsoft" href="/api/auth/login" hidden>
+          <svg viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg>
+          Sign in with Microsoft
+        </a>
+        <a class="btn btn--provider btn--block" id="btn-google" href="/api/auth/login" hidden>
+          <img src="/assets/img/google-g.png" alt="" width="20" height="20">
+          Sign in with Google
+        </a>
+      </div>
+      <div class="notice"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></svg><span>Only staff on the back office list can sign in. Your password and two-step check are handled by your work account.</span></div>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var next = params.get('next') || '/admin';
+  if (!/^\/admin(\/[\w\-./]*)?(#[\w-]*)?$/.test(next)) next = '/admin';
+  var msgs = {
+    not_staff: 'That account is not on the back office staff list. Ask the owner to add you.',
+    domain: 'Sign in with your @oneplustwo.co.uk work account.',
+    cancelled: 'Sign-in was cancelled.',
+    expired: 'That sign-in took too long or was opened in another tab. Please try again.',
+    provider: 'We could not confirm your account. Please try again.',
+    not_configured: 'Sign-in is not set up yet. See ADMIN-GUIDE.md in the website code.',
+    server: 'Something went wrong. Please try again.'
+  };
+  var msg = document.getElementById('msg');
+  var err = params.get('error');
+  if (err) { msg.textContent = msgs[err] || msgs.server; msg.hidden = false; }
+  else if (params.get('signed_out')) { msg.textContent = 'You have signed out.'; msg.className = 'notice notice--ok'; msg.hidden = false; }
+
+  var href = '/api/auth/login?next=' + encodeURIComponent(next);
+  fetch('/api/auth/info', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    var b = document.getElementById(d.provider === 'google' ? 'btn-google' : 'btn-microsoft');
+    b.href = href; b.hidden = false;
+    if (!d.configured && !err) { msg.textContent = msgs.not_configured; msg.hidden = false; }
+  }).catch(function () {
+    var b = document.getElementById('btn-microsoft'); b.href = href; b.hidden = false;
+  });
+  var d = new Date();
+  document.getElementById('rc-time').textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+})();
+</script>
+</body>
+</html>

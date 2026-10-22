@@ -8,10 +8,9 @@ var OPT_CONFIG = {
   /* Formspree form for hardware orders. Create a form whose emails go to accounts@oneplustwo.co.uk,
      turn on its autoresponse with the Viva payment link, and paste its ID here (the part after /f/). */
   orderFormId: 'xrpbvovl',
-  /* Voucher codes, stored as SHA-256 hashes of 'opt-voucher:' + the code in capitals, so the real codes never
-     appear in this file. type 'percent' takes value % off products; type 'fixed' takes value pence off products.
-     Ask Claude to add, change or remove codes. */
-  vouchers: {},
+  /* Voucher codes are managed in the back office (/admin) and saved to /assets/data/vouchers.json.
+     That file holds SHA-256 hashes of 'opt-voucher:' + the code in capitals, so the real codes never appear on the site. */
+  vouchersUrl: '/assets/data/vouchers.json',
   gaId: '',
   tawkSrc: 'https://embed.tawk.to/67a89ba1825083258e127105/1ijl9vrnr'
 };
@@ -418,7 +417,7 @@ var OPT_CONFIG = {
     function totals() {
       var sub = basket.reduce(function (t, i) { return t + i.price * i.qty; }, 0);
       var disc = 0;
-      if (voucher && sub) disc = voucher.type === 'percent' ? Math.round(sub * voucher.value / 100) : Math.min(voucher.value, sub);
+      if (voucher && sub && sub >= (voucher.min || 0)) disc = voucher.type === 'percent' ? Math.round(sub * voucher.value / 100) : Math.min(voucher.value, sub);
       var net = sub - disc;
       var del = basket.length ? (hasKiosk() ? DELIVERY_KIOSK : DELIVERY) : 0;
       var vat = Math.round(net * VAT_RATE); // VAT on products after discount; delivery is a flat fee (£9.95, or £19.95 with a kiosk)
@@ -447,7 +446,7 @@ var OPT_CONFIG = {
         totalsEl.querySelector('[data-t="disc"]').textContent = '−' + money(t.disc);
       }
       voucherApplied.hidden = !voucher; voucherForm.hidden = !!voucher;
-      if (voucher) { voucherApplied.querySelector('[data-voucher-code]').textContent = voucher.code; voucherApplied.querySelector('[data-voucher-label]').textContent = voucher.label + ' applied'; }
+      if (voucher) { voucherApplied.querySelector('[data-voucher-code]').textContent = voucher.code; voucherApplied.querySelector('[data-voucher-label]').textContent = (voucher.min && t.sub < voucher.min) ? voucher.label + ' on orders over ' + money(voucher.min) + ' before VAT' : voucher.label + ' applied'; }
       totalsEl.querySelector('[data-t="del"]').textContent = money(t.del);
       document.querySelectorAll('[data-delivery-price]').forEach(function (el) { el.textContent = money(t.del); });
       totalsEl.querySelector('[data-t="vat"]').textContent = money(t.vat);
@@ -468,18 +467,53 @@ var OPT_CONFIG = {
         return Array.prototype.map.call(new Uint8Array(buf), function (b) { return b.toString(16).padStart(2, '0'); }).join('');
       });
     }
+    /* Voucher list from the back office. Each entry: type, value, label, active, start, end (YYYY-MM-DD, UK dates), min (pence). */
+    var voucherList = null;
+    function loadVouchers() {
+      if (voucherList) return Promise.resolve(voucherList);
+      return fetch(OPT_CONFIG.vouchersUrl, { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : { vouchers: {} }; })
+        .then(function (d) { voucherList = (d && d.vouchers) || {}; return voucherList; })
+        .catch(function () { return null; });
+    }
+    function ukToday() {
+      try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); }
+    }
+    /* Returns null if the code can be used, or the message to show if not. */
+    function voucherProblem(v) {
+      var today = ukToday();
+      if (!v || v.active === false) return 'Sorry, that code isn\u2019t valid.';
+      if (v.start && v.start > today) return 'Sorry, that code can\u2019t be used yet.';
+      if (v.end && v.end < today) return 'Sorry, that code has expired.';
+      return null;
+    }
     function applyVoucher() {
       var code = voucherInput.value.trim().toUpperCase();
       voucherMsg.textContent = ''; voucherMsg.classList.remove('voucher-msg--error');
       if (!code) return;
-      if (!window.crypto || !crypto.subtle) { voucherMsg.textContent = 'Sorry, vouchers can\u2019t be checked in this browser.'; voucherMsg.classList.add('voucher-msg--error'); return; }
-      sha256('opt-voucher:' + code).then(function (h) {
-        var v = OPT_CONFIG.vouchers[h];
-        if (!v) { voucherMsg.textContent = 'Sorry, that code isn\u2019t valid.'; voucherMsg.classList.add('voucher-msg--error'); return; }
-        voucher = { code: code, type: v.type, value: v.value, label: v.label };
+      function fail(msg) { voucherMsg.textContent = msg; voucherMsg.classList.add('voucher-msg--error'); }
+      if (!window.crypto || !crypto.subtle) { fail('Sorry, vouchers can\u2019t be checked in this browser.'); return; }
+      Promise.all([sha256('opt-voucher:' + code), loadVouchers()]).then(function (r) {
+        var list = r[1];
+        if (!list) { fail('Sorry, we couldn\u2019t check that code. Please try again.'); return; }
+        var v = list[r[0]];
+        var problem = voucherProblem(v);
+        if (problem) { fail(problem); return; }
+        voucher = { code: code, type: v.type, value: v.value, label: v.label, min: v.min || 0 };
         try { localStorage.setItem(VOUCHER_KEY, JSON.stringify(voucher)); } catch (e) {}
         voucherInput.value = ''; render();
-        voucherMsg.textContent = 'Voucher applied: ' + v.label + '.';
+        var sub = basket.reduce(function (t, i) { return t + i.price * i.qty; }, 0);
+        voucherMsg.textContent = sub < voucher.min ? 'Voucher saved: ' + v.label + ' on orders over ' + money(voucher.min) + ' before VAT.' : 'Voucher applied: ' + v.label + '.';
+      });
+    }
+    /* A code saved earlier may have been switched off or expired since. Check it again on each visit. */
+    if (voucher && window.crypto && crypto.subtle) {
+      Promise.all([sha256('opt-voucher:' + voucher.code), loadVouchers()]).then(function (r) {
+        if (!r[1]) return;
+        var v = r[1][r[0]];
+        if (voucherProblem(v)) { voucher = null; try { localStorage.removeItem(VOUCHER_KEY); } catch (e) {} }
+        else voucher = { code: voucher.code, type: v.type, value: v.value, label: v.label, min: v.min || 0 };
+        render();
       });
     }
     voucherBox.querySelector('[data-voucher-apply]').addEventListener('click', applyVoucher);
