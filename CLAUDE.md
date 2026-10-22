@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 38)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N (currently 40)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -114,3 +114,7 @@ Read this before making any changes. It records decisions made while designing a
 
 - "Trusted By" venue logos run as a sliding carousel (two copies of the list in `.logo-marquee`; the second is `aria-hidden`). Add a new logo to both lists, greyscale like the others. Reduced-motion users get a static, centred row.
 - Plans: Loyalty Scheme is in Essentials (and so Premium), not Starter.
+
+## System status page
+
+- `/status` (status.html) reads `assets/data/status.json` (services, incidents, planned maintenance; no-cache header in vercel.json). `main.js` renders it and shows a dismissible alert bar above the header on every other page when something is wrong or maintenance is due within 24 hours. How to edit it: STATUS-GUIDE.md. Linked as "System status" in the footer Company column.
