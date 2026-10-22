@@ -630,4 +630,93 @@ var OPT_CONFIG = {
         .finally(function () { oBtn.disabled = false; oBtn.textContent = 'Place order'; });
     });
   }
+
+  /* ---------- System status: /status page and site-wide alert bar ----------
+     Edit /assets/data/status.json to post an incident or maintenance (see STATUS-GUIDE.md). */
+  (function () {
+    var STATUS_URL = '/assets/data/status.json';
+    var LABELS = { operational: 'Operational', degraded: 'Degraded performance', partial_outage: 'Partial outage', major_outage: 'Major outage', maintenance: 'Under maintenance' };
+    var RANK = { operational: 0, maintenance: 1, degraded: 2, partial_outage: 3, major_outage: 4 };
+    var STAGES = { investigating: 'Investigating', identified: 'Identified', monitoring: 'Monitoring', resolved: 'Resolved', scheduled: 'Scheduled', in_progress: 'In progress', completed: 'Completed' };
+    function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+    function when(iso) {
+      var d = new Date(iso); if (isNaN(d)) return '';
+      return d.toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+    }
+    function activeMaint(m, now) { return m.status !== 'completed' && new Date(m.end) > now; }
+    function summary(data) {
+      var now = new Date();
+      var incidents = (data.incidents || []).filter(function (i) { return i.status !== 'resolved'; });
+      var maint = (data.maintenance || []).filter(function (m) { return activeMaint(m, now); });
+      var worst = (data.components || []).reduce(function (w, c) { return Math.max(w, RANK[c.status] || 0); }, 0);
+      var maintNow = maint.filter(function (m) { return new Date(m.start) <= now; });
+      var level = worst >= 3 ? 'outage' : (worst === 2 || incidents.length) ? 'degraded' : (worst === 1 || maintNow.length) ? 'maintenance' : 'ok';
+      var title = { ok: 'All systems operational', degraded: 'Some services are having problems', outage: 'We\'re experiencing an outage', maintenance: 'Planned maintenance in progress' }[level];
+      return { level: level, title: title, incidents: incidents, maint: maint, maintNow: maintNow };
+    }
+    function load() {
+      return fetch(STATUS_URL, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+    }
+    function updatesHtml(item) {
+      return '<ol class="status-updates">' + (item.updates || []).slice().reverse().map(function (u) {
+        return '<li><strong>' + esc(STAGES[u.status] || '') + '</strong> <span class="small">' + esc(when(u.time)) + '</span><p>' + esc(u.message) + '</p></li>';
+      }).join('') + '</ol>';
+    }
+    function incidentHtml(i) {
+      return '<article class="status-incident status-incident--' + esc(i.status === 'resolved' ? 'resolved' : (i.impact || 'minor')) + '"><div class="status-incident-head"><h3>' + esc(i.title) + '</h3><span class="status-chip">' + esc(STAGES[i.status] || i.status) + '</span></div>' +
+        (i.components && i.components.length ? '<p class="small">Affects: ' + esc(i.components.join(', ')) + '</p>' : '') + updatesHtml(i) + '</article>';
+    }
+    function maintHtml(m) {
+      return '<article class="status-incident status-incident--maintenance"><div class="status-incident-head"><h3>' + esc(m.title) + '</h3><span class="status-chip">' + esc(new Date(m.start) <= new Date() ? 'In progress' : 'Scheduled') + '</span></div>' +
+        '<p class="small">' + esc(when(m.start)) + ' to ' + esc(when(m.end)) + (m.components && m.components.length ? ' · Affects: ' + esc(m.components.join(', ')) : '') + '</p>' + (m.message ? '<p>' + esc(m.message) + '</p>' : '') + '</article>';
+    }
+
+    var page = document.querySelector('[data-status-page]');
+    if (page) {
+      var banner = page.querySelector('[data-status-banner]');
+      load().then(function (data) {
+        var s = summary(data);
+        banner.className = 'status-banner status-banner--' + s.level;
+        page.querySelector('[data-status-title]').textContent = s.title;
+        page.querySelector('[data-status-updated]').textContent = data.updated ? 'Last updated ' + when(data.updated) : '';
+        page.querySelector('[data-status-components]').innerHTML = (data.components || []).map(function (c) {
+          return '<li class="status-item status-item--' + esc(c.status) + '"><span>' + esc(c.name) + '</span><span class="status-label"><span class="status-dot" aria-hidden="true"></span>' + esc(LABELS[c.status] || c.status) + '</span></li>';
+        }).join('');
+        var act = page.querySelector('[data-status-active]');
+        act.hidden = !s.incidents.length;
+        page.querySelector('[data-status-active-list]').innerHTML = s.incidents.map(incidentHtml).join('');
+        var mt = page.querySelector('[data-status-maint]');
+        mt.hidden = !s.maint.length;
+        page.querySelector('[data-status-maint-list]').innerHTML = s.maint.map(maintHtml).join('');
+        var past = (data.incidents || []).filter(function (i) { return i.status === 'resolved'; }).slice(0, 10);
+        if (past.length) page.querySelector('[data-status-past]').innerHTML = past.map(incidentHtml).join('');
+      }).catch(function () {
+        banner.className = 'status-banner status-banner--degraded';
+        page.querySelector('[data-status-title]').textContent = 'We couldn\'t load the latest status';
+        page.querySelector('[data-status-updated]').textContent = 'Please refresh the page, or call +44 24 7775 2650 if you need help.';
+      });
+      return;
+    }
+
+    /* Alert bar on every other page, only when something is wrong or maintenance is due within 24 hours */
+    if (!window.fetch) return;
+    load().then(function (data) {
+      var s = summary(data);
+      var soon = s.maint.filter(function (m) { return new Date(m.start) - new Date() < 24 * 3600 * 1000; });
+      var msg = '';
+      if (s.level === 'outage' || s.level === 'degraded') msg = s.incidents.length ? s.incidents[0].title : s.title;
+      else if (s.maintNow.length) msg = 'Planned maintenance in progress: ' + s.maintNow[0].title;
+      else if (soon.length) msg = 'Planned maintenance ' + when(soon[0].start) + ': ' + soon[0].title;
+      if (!msg) return;
+      var key = 'opt-status-dismissed';
+      try { if (sessionStorage.getItem(key) === msg) return; } catch (e) {}
+      var bar = document.createElement('div');
+      bar.className = 'status-alert status-alert--' + (s.level === 'ok' ? 'maintenance' : s.level);
+      bar.setAttribute('role', 'status');
+      bar.innerHTML = '<div class="container"><span class="status-dot" aria-hidden="true"></span><p>' + esc(msg) + ' <a href="/status">See status</a></p><button type="button" aria-label="Dismiss status message">×</button></div>';
+      bar.querySelector('button').addEventListener('click', function () { bar.remove(); try { sessionStorage.setItem(key, msg); } catch (e) {} });
+      var hdr = document.querySelector('.site-header');
+      if (hdr) hdr.parentNode.insertBefore(bar, hdr); else document.body.insertBefore(bar, document.body.firstChild);
+    }).catch(function () {});
+  })();
 })();

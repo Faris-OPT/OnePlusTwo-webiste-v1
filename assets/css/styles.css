@@ -707,3 +707,40 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
   .logo-marquee .logo-track { animation: none; flex-wrap: wrap; justify-content: center; flex: 1 1 auto; padding-right: 0; }
   .logo-marquee .logo-track[aria-hidden="true"] { display: none; }
 }
+
+/* ---------- System status ---------- */
+.status-dot { width: 12px; height: 12px; border-radius: 50%; background: #9aa09b; flex: none; display: inline-block; }
+.status-banner { display: flex; align-items: center; gap: 16px; padding: 22px 26px; border-radius: 24px; background: var(--white); border: 1px solid var(--line); }
+.status-banner .status-dot { width: 18px; height: 18px; }
+.status-banner-title { font-size: clamp(1.3rem, 1vw + 1rem, 1.7rem); margin: 0; }
+.status-banner p { margin: 4px 0 0; }
+.status-banner--ok { background: var(--mint); border-color: transparent; }
+.status-banner--ok .status-dot, .status-item--operational .status-dot { background: #04D98B; }
+.status-banner--maintenance { background: #EAF1FF; border-color: transparent; }
+.status-banner--maintenance .status-dot, .status-item--maintenance .status-dot { background: #3B6FE0; }
+.status-banner--degraded { background: #FFF5DD; border-color: transparent; }
+.status-banner--degraded .status-dot, .status-item--degraded .status-dot { background: #E9A400; }
+.status-item--partial_outage .status-dot { background: #F07B1E; }
+.status-banner--outage { background: #FDE8E6; border-color: transparent; }
+.status-banner--outage .status-dot, .status-item--major_outage .status-dot { background: #D93A2B; }
+.status-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--white); overflow: hidden; }
+.status-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.status-item:last-child { border-bottom: 0; }
+.status-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; color: var(--ink); text-align: right; }
+.status-incident { padding: 20px 22px; border-radius: 20px; background: var(--white); border: 1px solid var(--line); border-left: 6px solid #E9A400; }
+.status-incident--major { border-left-color: #D93A2B; }
+.status-incident--maintenance { border-left-color: #3B6FE0; }
+.status-incident-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.status-incident h3 { margin: 0; font-size: 1.15rem; }
+.status-chip { font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--ground); border: 1px solid var(--line); }
+.status-updates { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
+.status-updates p { margin: 4px 0 0; }
+.status-alert { color: var(--ink); font-size: 0.95rem; }
+.status-alert .container { display: flex; align-items: center; gap: 12px; padding-top: 10px; padding-bottom: 10px; }
+.status-alert p { margin: 0; flex: 1; }
+.status-alert a { color: inherit; font-weight: 600; text-decoration: underline; }
+.status-alert button { background: none; border: 0; font-size: 1.4rem; line-height: 1; cursor: pointer; color: inherit; padding: 4px 8px; }
+.status-alert--degraded { background: #FFF5DD; } .status-alert--degraded .status-dot { background: #E9A400; }
+.status-alert--outage { background: #FDE8E6; } .status-alert--outage .status-dot { background: #D93A2B; }
+.status-alert--maintenance { background: #EAF1FF; } .status-alert--maintenance .status-dot { background: #3B6FE0; }
+.status-incident--resolved { border-left-color: #04D98B; }

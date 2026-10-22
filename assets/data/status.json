@@ -1,0 +1,15 @@
+{
+  "updated": "2026-10-22T13:00:00+01:00",
+  "components": [
+    { "name": "Point of sale (tills)", "status": "operational" },
+    { "name": "Back office and reports", "status": "operational" },
+    { "name": "Self-service kiosks", "status": "operational" },
+    { "name": "Kitchen display screens", "status": "operational" },
+    { "name": "Collection display screens", "status": "operational" },
+    { "name": "Online ordering websites", "status": "operational" },
+    { "name": "Integrated card payments", "status": "operational" },
+    { "name": "Delivery app integrations", "status": "operational" }
+  ],
+  "incidents": [],
+  "maintenance": []
+}
