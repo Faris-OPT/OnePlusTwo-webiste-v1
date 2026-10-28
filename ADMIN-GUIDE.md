@@ -13,7 +13,7 @@ This guide covers the one-off setup (about 30 minutes) and how the back office w
 
 ## How it works
 
-- `/admin` is part of the main website. `middleware.js` checks every visit to `/admin` and `/api/admin`. Anyone who isn't signed in is sent to `/admin/login`.
+- `/admin` is part of the main website. `middleware.js` checks every visit to `/admin` and `/api/admin`. If the extra browser password is switched on, it asks for that first. Anyone who isn't signed in is then sent to `/admin/login`.
 - Signing in goes to Microsoft or Google. After that, the site checks three things:
   - the person has an @oneplustwo.co.uk account,
   - they're on the staff list (`ADMIN_USERS`),
@@ -114,6 +114,8 @@ In Vercel, open the project, then **Settings → Environment Variables**. Add th
 | `GITHUB_TOKEN` | from step 2 |
 | `GITHUB_REPO` | `Faris-OPT/OnePlusTwo-webiste-v1` |
 | `GITHUB_BRANCH` | the production branch from step 0 |
+| `ADMIN_BASIC_USER` | optional, see "Extra lock" below |
+| `ADMIN_BASIC_PASS` | optional, see "Extra lock" below |
 
 Then go to **Deployments**, open the three dots on the latest deployment and choose **Redeploy**. Settings only apply after a redeploy.
 
@@ -123,6 +125,27 @@ Then go to **Deployments**, open the three dots on the latest deployment and cho
 2. Click **Sign in with Microsoft** (or Google) and use your work account.
 3. On the dashboard, check there's no yellow "Setup not finished" box.
 4. Make a small test edit, publish it, and check it appears on the site about a minute later.
+
+---
+
+## Extra lock: browser username and password (optional)
+
+As well as the Microsoft or Google sign-in, you can put a browser username and password box in front of the back office. Anyone without it never sees the back office or its sign-in page, so bots and passers-by can't even get as far as the sign-in button. This is called HTTP authentication.
+
+To switch it on, add these two settings in Vercel (**Settings → Environment Variables**, Production), then redeploy:
+
+| Name | Type | Value |
+|---|---|---|
+| `ADMIN_BASIC_USER` | Config | a username, for example `opt-staff` |
+| `ADMIN_BASIC_PASS` | Secret | a long random password from your password manager |
+
+To switch it off again, delete both settings and redeploy.
+
+Things to know:
+- Everyone on staff shares the same username and password, so give it only to people on the staff list. Change it when someone leaves: edit `ADMIN_BASIC_PASS` in Vercel and redeploy.
+- The browser remembers it until the browser is closed. "Sign out" in the back office ends the Microsoft session but not the browser password.
+- Each person still has to sign in with their own work account after the password box. The password is an extra lock, not a replacement.
+- The public website, the shop and the status page are not affected.
 
 ---
 
