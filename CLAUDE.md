@@ -132,9 +132,10 @@ Read this before making any changes. It records decisions made while designing a
 ## Added October 2026
 
 - Never name Bombay Bites on the site (it is an internal test store).
+- Online reservations and table bookings are included in Essentials (and so Premium). The £99 POS and kiosk bundle box on /pricing is headed "The ultimate bundle" and must say it covers software licences only, not hardware.
 - Products: Table bookings (`/table-bookings`, written from the live reservation form: guest details, number of guests, date and time within opening hours, special occasion, allergies, note, "Table area" dropdown with live table status; small demo script in main.js) and Menu screens and digital signage (`/digital-signage`, £19 a month + VAT licence per screen). Both on /products and in the footer Products column.
 - Who we serve: Food halls (`/food-halls`, the whole hall and every vendor on one centralised system), on /who-we-serve and in the footer.
-- EuroCIS 2027 (16 to 18 February 2027, Messe Düsseldorf): subtle strip on the homepage linking to `/eurocis-2027`. No separate Calendly event (free plan): visitors book on the existing demo link for 16 to 18 February 2027 and write "EuroCIS show appointment" in the booking notes. Hall and stand number still to come.
+- EuroCIS 2027 (16 to 18 February 2027, Messe Düsseldorf): subtle strip on the homepage linking to `/eurocis-2027`. No separate Calendly event (free plan): visitors book on the existing demo link for 16 to 18 February 2027, then email hello@oneplustwo.co.uk with the subject "EuroCIS show appointment" (the Calendly form has no notes box). Stand: Hall 5, Booth 5A10.
 - Retail wording: avoid "shop"/"shops" for retail businesses (it suggests small businesses). Use retailers, grocers or stores. The header "Shop" button is the hardware shop and stays.
 - Retail page recommended hardware shows Weighing scales instead of Till terminals.
 - Changes go to a branch and a pull request first, so Vercel builds a preview; merge to the production branch only after the preview is approved.
