@@ -1,16 +1,20 @@
 /* Back office gatekeeper (Vercel Routing Middleware).
-   Runs before every request to /admin and /api/admin. Anyone without a valid staff session is sent to the
-   sign-in page (or gets a 401 for API calls). The session cookie is set by /api/auth/callback after the person
-   signs in with their work Microsoft or Google account. See ADMIN-GUIDE.md. */
+   Runs before every request to /admin, /api/admin and the start of sign-in (/api/auth/login). Two locks:
+   1. HTTP authentication (the browser's own username and password box), when ADMIN_BASIC_USER and
+      ADMIN_BASIC_PASS are set in Vercel. Anyone without them never sees the back office or its sign-in page.
+   2. A staff session. Anyone without one is sent to the sign-in page (or gets a 401 for API calls). The session
+      cookie is set by /api/auth/callback after the person signs in with their work Microsoft or Google account.
+   See ADMIN-GUIDE.md. */
 
-export const config = { matcher: ['/admin', '/admin/:path*', '/api/admin/:path*'] };
+export const config = { matcher: ['/admin', '/admin/:path*', '/api/admin/:path*', '/api/auth/login'] };
 
 const OPEN_PATHS = ['/admin/login', '/admin/login.html', '/admin/admin.css'];
 const COOKIE = 'opt_admin';
 
 export default async function middleware(request) {
   const url = new URL(request.url);
-  if (OPEN_PATHS.includes(url.pathname)) return next();
+  if (!(await basicAuthOk(request.headers.get('authorization')))) return askForPassword();
+  if (url.pathname === '/api/auth/login' || OPEN_PATHS.includes(url.pathname)) return next();
 
   const user = await readSession(request.headers.get('cookie') || '', process.env.SESSION_SECRET);
   if (user && staffRole(user.e)) return next();
@@ -21,6 +25,51 @@ export default async function middleware(request) {
   const login = new URL('/admin/login', url);
   login.searchParams.set('next', url.pathname + url.hash);
   return Response.redirect(login.toString(), 302);
+}
+
+/* ---------- HTTP authentication (optional outer lock) ---------- */
+const REALM = 'OnePlusTwo back office';
+
+async function basicAuthOk(header) {
+  const user = process.env.ADMIN_BASIC_USER, pass = process.env.ADMIN_BASIC_PASS;
+  if (!user || !pass) return true; // not switched on
+  if (!header || !/^Basic\s+/i.test(header)) return false;
+  let decoded;
+  try { decoded = new TextDecoder().decode(b64ToBytes(header.replace(/^Basic\s+/i, '').trim())); } catch (e) { return false; }
+  const i = decoded.indexOf(':');
+  if (i < 0) return false;
+  /* Compare both parts in full every time, so the response time gives nothing away. */
+  const okUser = await sameText(decoded.slice(0, i), user);
+  const okPass = await sameText(decoded.slice(i + 1), pass);
+  return okUser && okPass;
+}
+
+async function sameText(a, b) {
+  const enc = new TextEncoder();
+  const [x, y] = await Promise.all([crypto.subtle.digest('SHA-256', enc.encode(a)), crypto.subtle.digest('SHA-256', enc.encode(b))]);
+  const p = new Uint8Array(x), q = new Uint8Array(y);
+  let diff = 0;
+  for (let k = 0; k < p.length; k++) diff |= p[k] ^ q[k];
+  return diff === 0;
+}
+
+function b64ToBytes(s) {
+  const bin = atob(s);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+function askForPassword() {
+  return new Response('<!doctype html><meta charset="utf-8"><title>Staff only</title><p style="font-family:sans-serif">This area is for OnePlusTwo staff only.</p>', {
+    status: 401,
+    headers: {
+      'www-authenticate': 'Basic realm="' + REALM + '", charset="UTF-8"',
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+      'x-robots-tag': 'noindex'
+    }
+  });
 }
 
 /* Let the request carry on to the page or function. */
