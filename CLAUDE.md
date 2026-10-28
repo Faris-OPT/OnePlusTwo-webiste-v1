@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N` (currently 40) and `main.js?v=N` (currently 41). After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N` (currently 41) and `main.js?v=N` (currently 42). After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -40,8 +40,8 @@ Read this before making any changes. It records decisions made while designing a
 ## Pricing (keep consistent everywhere)
 
 - Plans, all per month + VAT: Starter £49, Essentials £79 (marked "Most popular"), Premium £109.
-- Extra licences for existing customers: £19 a month + VAT each, for any additional till, kitchen display screen, collection screen or self-service kiosk.
-- Self-service kiosk: £59 a month + VAT software (£19 if already on a plan), hardware from £749 + VAT one-off (22-inch package £749, 27-inch package £1,049).
+- Extra licences for existing customers: £19 a month + VAT each, for any additional till, kitchen display screen, collection screen or menu screen (digital signage). Self-service kiosks: £19 a month + VAT each from the second kiosk onwards.
+- Self-service kiosk: £59 a month + VAT software. POS and kiosk bundle (one till + one kiosk licence) £99 a month + VAT, shown on /pricing (#kiosk-bundle); kiosks are £19 a month + VAT each from the second kiosk onwards. Hardware from £799 + VAT one-off (22-inch package £799, Sunmi or Zebra branded; 27-inch package £1,049, Sunmi branded).
 - All prices, including hardware, are shown + VAT.
 - Every plan includes 7-day support.
 - Enquiries are answered within 2 hours.
@@ -64,7 +64,7 @@ Read this before making any changes. It records decisions made while designing a
 
 ## Hardware shop (/shop)
 
-- Products (shop.html, one card each with an option dropdown; option `data-img` swaps the photo, `data-desc` and `data-includes` (pipe-separated) swap the description and included items; deep links `/shop?product=<id>&option=<value>#product-<id>`): complete till kit (tablet/desktop models above), customer display screen, additional handheld POS, kitchen display screen £399 + VAT (entry level, recommended for up to 150 orders a day) or £549 + VAT (premium), self-service kiosk package with stand and printer (22-inch £749 + VAT or 27-inch £1,049 + VAT, one dropdown), Sunmi P2SE (£189 + VAT), 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence); options can carry their own prices.
+- Products (shop.html, one card each with an option dropdown; option `data-img` swaps the photo, `data-desc` and `data-includes` (pipe-separated) swap the description and included items; deep links `/shop?product=<id>&option=<value>#product-<id>`): complete till kit (tablet/desktop models above), customer display screen, additional handheld POS, kitchen display screen £399 + VAT (entry level, recommended for up to 150 orders a day) or £549 + VAT (premium), self-service kiosk package with stand and printer (22-inch £799 + VAT or 27-inch £1,049 + VAT, one dropdown), Sunmi P2SE (£189 + VAT), 80mm x 80mm thermal printer £129 + VAT, 24V steel cash drawer £69 + VAT. Prices live in `SHOP_ITEMS` in the shop page (in pence); options can carry their own prices.
 - Delivery: next day delivery via courier, a flat £9.95, or £19.95 when the basket contains a self-service kiosk (`DELIVERY` / `DELIVERY_KIOSK` in main.js; no VAT added on top). VAT at 20% is added to product prices only.
 - Terms of sale are at `/terms-of-sale`, linked in the footer and in the checkout agreement box.
 - V1 checkout: the order is sent through Formspree (form ID `xrpbvovl`, set in `OPT_CONFIG.orderFormId` in `main.js`) to accounts@oneplustwo.co.uk, with an order reference like OPT-YYMMDD-XXXX. The confirmation screen shows the total and the Viva payment link (https://pay.vivawallet.com/epos-anytime), and Formspree's autoresponse emails the link to the customer.
@@ -84,7 +84,7 @@ Read this before making any changes. It records decisions made while designing a
 ## Products and partners
 
 - Products: self-service kiosks, point of sale, integrated payments, kitchen display screens, collection display screens, online ordering website. Each has its own page, linked from `/products`.
-- Hardware brands stocked: Sunmi, iMin (tills) and PAX (card terminals). Specific models now appear on /hardware and /shop (D3 Pro, D3 Mini, D3 80mm kit, P3 Mix, V3 Mix, P2SE, Swan 2 Pro).
+- Hardware brands stocked: Sunmi, iMin (tills), PAX (card terminals) and Zebra (logo in the Hardware page brand row). Specific models now appear on /hardware and /shop (D3 Pro, D3 Mini, D3 80mm kit, P3 Mix, V3 Mix, P2SE, Swan 2 Pro).
 - Payment providers: Dojo, Viva.com, DNA Payments, Paynt.
 - Delivery apps: Uber Eats, Deliveroo, Just Eat, Uber Direct, Otter. Accounting: Xero.
 - Partner logos are in `assets/img/partners/`.
@@ -128,3 +128,13 @@ Read this before making any changes. It records decisions made while designing a
 - Section templates for "Add a section" are in `TEMPLATES` in `admin/admin.js` and use the site's existing classes.
 - `/admin` and `/api` are blocked in robots.txt and sent with `noindex` and `no-store` headers (vercel.json).
 
+
+## Added October 2026
+
+- Never name Bombay Bites on the site (it is an internal test store).
+- Products: Table bookings (`/table-bookings`, written from the live reservation form: guest details, number of guests, date and time within opening hours, special occasion, allergies, note, "Table area" dropdown with live table status; small demo script in main.js) and Menu screens and digital signage (`/digital-signage`, £19 a month + VAT licence per screen). Both on /products and in the footer Products column.
+- Who we serve: Food halls (`/food-halls`, the whole hall and every vendor on one centralised system), on /who-we-serve and in the footer.
+- EuroCIS 2027 (16 to 18 February 2027, Messe Düsseldorf): subtle strip on the homepage linking to `/eurocis-2027`. No separate Calendly event (free plan): visitors book on the existing demo link for 16 to 18 February 2027 and write "EuroCIS show appointment" in the booking notes. Hall and stand number still to come.
+- Retail wording: avoid "shop"/"shops" for retail businesses (it suggests small businesses). Use retailers, grocers or stores. The header "Shop" button is the hardware shop and stays.
+- Retail page recommended hardware shows Weighing scales instead of Till terminals.
+- Changes go to a branch and a pull request first, so Vercel builds a preview; merge to the production branch only after the preview is approved.

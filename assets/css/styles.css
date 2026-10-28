@@ -744,3 +744,39 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .status-alert--outage { background: #FDE8E6; } .status-alert--outage .status-dot { background: #D93A2B; }
 .status-alert--maintenance { background: #EAF1FF; } .status-alert--maintenance .status-dot { background: #3B6FE0; }
 .status-incident--resolved { border-left-color: #04D98B; }
+
+/* ---------- Table bookings demo ---------- */
+.steps-list { margin: 0; padding-left: 1.3em; display: grid; gap: 14px; }
+.steps-list li { padding-left: 4px; }
+.tb-demo { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; min-width: 0; }
+.tb-label { font-weight: 600; margin: 0; }
+.tb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 8px; }
+.tb-grid[hidden] { display: none; }
+.tb-table { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 60px; padding: 6px 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); color: var(--ink); font: inherit; cursor: pointer; }
+.tb-table strong { font-size: 1rem; }
+.tb-table span { font-size: 0.72rem; color: var(--muted); }
+.tb-table--taken { background: #F48080; border-color: #F48080; color: var(--white); cursor: not-allowed; }
+.tb-table--taken span { color: var(--white); }
+.tb-table[aria-pressed="true"] { outline: 3px solid var(--green-dark); outline-offset: 1px; background: var(--mint); }
+.tb-table:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 2px; }
+.tb-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 0.9rem; color: var(--muted); }
+.tb-pill { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; color: var(--ink); font-weight: 600; }
+.tb-key { display: inline-block; width: 12px; height: 12px; border: 1px solid var(--line); border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--white); }
+.tb-key--taken { background: #E5484D; border-color: #E5484D; }
+
+/* ---------- EuroCIS ---------- */
+.event-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 44px); display: grid; gap: 24px; }
+.event-card img { width: min(260px, 100%); height: auto; }
+.event-facts { margin: 0; display: grid; gap: 14px; }
+.event-facts div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; border-top: 1px solid var(--line); padding-top: 14px; }
+.event-facts dt { font-weight: 600; color: var(--green-dark); }
+.event-facts dd { margin: 0; }
+.event-strip { display: flex; align-items: center; gap: 16px 28px; flex-wrap: wrap; padding: 18px 28px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+.event-strip img { height: 44px; width: auto; }
+.event-strip p { margin: 0; flex: 1 1 260px; color: var(--ink); max-width: none; }
+
+/* ---------- POS and kiosk bundle (pricing) ---------- */
+.bundle-band { margin-top: 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding: clamp(24px, 4vw, 40px); border-radius: var(--radius); background: var(--mint); }
+.bundle-band .stack { flex: 1 1 380px; }
+.bundle-price { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.bundle-price .btn { margin-top: 10px; }
