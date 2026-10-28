@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N (currently 40)` and `main.js?v=N`. After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N` (currently 40) and `main.js?v=N` (currently 41). After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -71,7 +71,7 @@ Read this before making any changes. It records decisions made while designing a
 - V2 (planned): take payment directly with the Viva payment gateway.
 - Hardware prices never include software. The till kit, kitchen display screen and kiosk cards carry "Software not included" small print (the `shop-note` line on each card), the checkout agreement mentions it, and section 4 of the terms of sale explains it. Keep this wording in place whenever products or prices change.
 - The basket is stored in localStorage under `opt-basket`.
-- Voucher codes: listed in `OPT_CONFIG.vouchers` in `main.js` as SHA-256 hashes of `opt-voucher:` + the code in capitals (never the plain code). Each has `type` ('percent' or 'fixed'), `value` (percent, or pence for fixed) and a `label` such as '10% off'. Discounts apply to products before VAT; delivery is unaffected. Orders include `voucher_code`, `discount` and a full `order_summary` receipt.
+- Voucher codes: managed by staff in the back office (/admin) and saved to `assets/data/vouchers.json`, which `main.js` fetches (`OPT_CONFIG.vouchersUrl`). Each entry is keyed by the SHA-256 hash of `opt-voucher:` + the code in capitals and has `type` ('percent' or 'fixed'), `value` (percent, or pence for fixed), `label`, `active`, `start`/`end` (YYYY-MM-DD, UK dates) and `min` (minimum product spend in pence before VAT), plus `c`, the code and staff note encrypted with `VOUCHER_SECRET`. Never write plain codes into the repo. Discounts apply to products before VAT; delivery is unaffected. Orders include `voucher_code`, `discount` and a full `order_summary` receipt.
 
 ## Seasonal content
 
@@ -118,3 +118,13 @@ Read this before making any changes. It records decisions made while designing a
 ## System status page
 
 - `/status` (status.html) reads `assets/data/status.json` (services, incidents, planned maintenance; no-cache header in vercel.json). `main.js` renders it and shows a dismissible alert bar above the header on every other page when something is wrong or maintenance is due within 24 hours. How to edit it: STATUS-GUIDE.md. Linked as "System status" in the footer Company column.
+
+## Back office (/admin)
+
+- Staff-only CMS at `/admin`, explained in ADMIN-GUIDE.md (setup steps, roles, limits). Sign-in is with a work Microsoft 365 or Google Workspace account (`AUTH_PROVIDER`); the staff list and roles are in the `ADMIN_USERS` environment variable in Vercel.
+- `middleware.js` protects `/admin` and `/api/admin`. Server code is in `api/` (Node, no dependencies, two functions: `api/auth/[action].js` and `api/admin/[action].js`; shared code in `api/_lib/`). The interface is `admin/` (plain HTML, CSS and JS, reusing the brand colours and fonts).
+- Publishing commits to GitHub through the API (`GITHUB_TOKEN`, `GITHUB_REPO`, `GITHUB_BRANCH`), so Vercel redeploys. The back office may only write root `*.html` pages, `assets/data/status.json`, `assets/data/vouchers.json` (through the vouchers route) and images under `assets/img/`.
+- The page editor only rewrites what is inside `<main>` plus the `<title>`, meta description and `og:` title/description. Sections are the direct `<section>` children of `<main>`; hiding one adds the `hidden` attribute. Keep that structure on new pages so they stay editable, and keep the header and footer outside `<main>`.
+- Section templates for "Add a section" are in `TEMPLATES` in `admin/admin.js` and use the site's existing classes.
+- `/admin` and `/api` are blocked in robots.txt and sent with `noindex` and `no-store` headers (vercel.json).
+
