@@ -753,4 +753,20 @@ var OPT_CONFIG = {
       if (hdr) hdr.parentNode.insertBefore(bar, hdr); else document.body.insertBefore(bar, document.body.firstChild);
     }).catch(function () {});
   })();
+  /* ---------- Table bookings demo ---------- */
+  (function () {
+    var demo = document.querySelector('[data-tb-demo]');
+    if (!demo) return;
+    var area = demo.querySelector('[data-tb-area]');
+    area.addEventListener('change', function () {
+      demo.querySelectorAll('[data-tb-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-tb-panel') !== area.value; });
+    });
+    demo.querySelectorAll('.tb-table:not([disabled])').forEach(function (b) {
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () {
+        demo.querySelectorAll('.tb-table[aria-pressed]').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+      });
+    });
+  })();
 })();
