@@ -1,15 +1,4 @@
 {
-  "updated": "2026-10-28T14:23:04.775Z",
-  "vouchers": {
-    "8b573499015cd1f2bc142980d950cd0b93f7063c658b103e46fd8be5ed5d0861": {
-      "type": "percent",
-      "value": 10,
-      "label": "10% off",
-      "active": true,
-      "start": "2026-10-28",
-      "end": "2026-10-29",
-      "min": 0,
-      "c": "yNklIZgb4+X7wtnGOVpFSIAEA3Jr5IWC7HVc9z/l2WGrLfmJTQd9WhfYTcz9dLSKlNkI2/6jSHmV3b/1O8TlCrSFIrPTCremsgtxTPC7D1D0m2PFeRc5QKwDFlP0tNjFUYQ="
-    }
-  }
+  "updated": "2026-10-28T14:23:43.717Z",
+  "vouchers": {}
 }
