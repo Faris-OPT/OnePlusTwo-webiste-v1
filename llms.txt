@@ -20,7 +20,7 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 - [Online ordering website](https://www.oneplustwo.co.uk/online-ordering): branded ordering site for collection, delivery and QR code table ordering. Included in Essentials and Premium.
 - [Table bookings](https://www.oneplustwo.co.uk/table-bookings): online reservations with table areas and live table status. Included in Essentials and Premium.
 - [Menu screens and digital signage](https://www.oneplustwo.co.uk/digital-signage): £19 a month + VAT per screen.
-- [Caller ID](https://www.oneplustwo.co.uk/caller-id): the caller's number appears on the till as the phone rings. Part of Essentials and Premium; needs the Artech VR1 USB caller ID box (£69 + VAT) and a VoIP phone line.
+- [Caller ID](https://www.oneplustwo.co.uk/caller-id): when the phone rings, the caller's number fills in on the till, and repeat customers' names and addresses appear too. Included in Essentials (and Premium). Needs the Artech VR1 caller ID box (£69 + VAT) on a VoIP phone line; it does not work with ordinary landlines.
 - [Integrated payments](https://www.oneplustwo.co.uk/integrated-payments): works with Dojo, Viva.com, DNA Payments and Paynt. Card processing rates vary by payment provider.
 - [Integrations](https://www.oneplustwo.co.uk/integrations): Uber Eats, Deliveroo, Just Eat, Uber Direct, Otter and Xero.
 
