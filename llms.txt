@@ -20,13 +20,14 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 - [Online ordering website](https://www.oneplustwo.co.uk/online-ordering): branded ordering site for collection, delivery and QR code table ordering. Included in Essentials and Premium.
 - [Table bookings](https://www.oneplustwo.co.uk/table-bookings): online reservations with table areas and live table status. Included in Essentials and Premium.
 - [Menu screens and digital signage](https://www.oneplustwo.co.uk/digital-signage): £19 a month + VAT per screen.
+- [Caller ID](https://www.oneplustwo.co.uk/caller-id): when the phone rings, the caller's number fills in on the till, and repeat customers' names and addresses appear too. Included in Essentials (and Premium). Needs the Artech VR1 caller ID box (£69 + VAT) on a VoIP phone line; it does not work with ordinary landlines.
 - [Integrated payments](https://www.oneplustwo.co.uk/integrated-payments): works with Dojo, Viva.com, DNA Payments and Paynt. Card processing rates vary by payment provider.
 - [Integrations](https://www.oneplustwo.co.uk/integrations): Uber Eats, Deliveroo, Just Eat, Uber Direct, Otter and Xero.
 
 ## Hardware (one-off, + VAT)
 
 - [Hardware](https://www.oneplustwo.co.uk/hardware): brands stocked are Sunmi, iMin, PAX and Zebra.
-- [Shop](https://www.oneplustwo.co.uk/shop): complete till kits from £379 (Tablet POS £379, Sunmi D3 Mini £449, Sunmi D3 Pro £499, iMin Swan 2 Pro £499, Sunmi D3 80mm £749), each with a cash drawer and integrated card machine, plus an 80mm receipt printer (the Sunmi D3 80mm has its printer built in). Handheld POS: Sunmi P3 Mix £399, Sunmi V3 Mix £379. Self-service kiosk package: 22-inch £799, 27-inch £1,049. Next day delivery by courier.
+- [Shop](https://www.oneplustwo.co.uk/shop): complete till kits from £379 (Tablet POS £379, Sunmi D3 Mini £449, Sunmi D3 Pro £499, iMin Swan 2 Pro £499, Sunmi D3 80mm £749), each with a cash drawer and integrated card machine, plus an 80mm receipt printer (the Sunmi D3 80mm has its printer built in). Handheld POS: Sunmi P3 Mix £399, Sunmi V3 Mix £379. Self-service kiosk package: 22-inch £799, 27-inch £1,049. Artech VR1 caller ID box £69. Next day delivery by courier.
 
 ## Who we serve
 
