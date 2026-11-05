@@ -1,0 +1,45 @@
+# OnePlusTwo
+
+> OnePlusTwo is a UK company that provides cloud-based point of sale (EPOS) software and hardware, mainly for hospitality businesses (restaurants, cafes, takeaways, events and festivals, and food halls), and also for retailers and grocers. Based in Coventry, it serves businesses across the whole UK, with support 7 days a week.
+
+All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from the monthly software plans.
+
+## Software plans (per month + VAT)
+
+- [Pricing](https://www.oneplustwo.co.uk/pricing): Starter £49 (order and table management, split payment and split bill, stock control, 7-day support). Essentials £79 (everything in Starter, plus a branded online ordering website, delivery app and other third-party integrations, VoIP integration, loyalty scheme, online table bookings). Premium £109 (everything in Essentials, plus mobile app integrations, multi-store capability and an assigned account manager).
+- The ultimate bundle: £99 a month + VAT for the software licences of one POS and one self-service kiosk. Hardware is not included.
+- Extra licences: £19 a month + VAT each for an additional till, kitchen display screen, collection display screen or menu screen. Self-service kiosks are £19 a month + VAT each from the second kiosk onwards.
+- Delivery app integrations (Uber Eats, Deliveroo, Just Eat) may carry an additional charge.
+
+## Products
+
+- [Point of sale](https://www.oneplustwo.co.uk/point-of-sale): cloud-based tills for hospitality and retail.
+- [Self-service kiosks](https://www.oneplustwo.co.uk/self-service-kiosks): customers order and pay themselves. Kiosk packages from £799 + VAT.
+- [Kitchen display screens](https://www.oneplustwo.co.uk/kitchen-display-screens): orders on screen in the kitchen. From £399 + VAT, plus £19 a month + VAT per screen.
+- [Collection display screens](https://www.oneplustwo.co.uk/collection-display-screens): show customers when orders are ready. £19 a month + VAT per screen.
+- [Online ordering website](https://www.oneplustwo.co.uk/online-ordering): branded ordering site for collection, delivery and QR code table ordering. Included in Essentials and Premium.
+- [Table bookings](https://www.oneplustwo.co.uk/table-bookings): online reservations with table areas and live table status. Included in Essentials and Premium.
+- [Menu screens and digital signage](https://www.oneplustwo.co.uk/digital-signage): £19 a month + VAT per screen.
+- [Integrated payments](https://www.oneplustwo.co.uk/integrated-payments): works with Dojo, Viva.com, DNA Payments and Paynt. Card processing rates vary by payment provider.
+- [Integrations](https://www.oneplustwo.co.uk/integrations): Uber Eats, Deliveroo, Just Eat, Uber Direct, Otter and Xero.
+
+## Hardware (one-off, + VAT)
+
+- [Hardware](https://www.oneplustwo.co.uk/hardware): brands stocked are Sunmi, iMin, PAX and Zebra.
+- [Shop](https://www.oneplustwo.co.uk/shop): complete till kits from £379 (Tablet POS £379, Sunmi D3 Mini £449, Sunmi D3 Pro £499, iMin Swan 2 Pro £499, Sunmi D3 80mm £749), each with a cash drawer and integrated card machine, plus an 80mm receipt printer (the Sunmi D3 80mm has its printer built in). Handheld POS: Sunmi P3 Mix £399, Sunmi V3 Mix £379. Self-service kiosk package: 22-inch £799, 27-inch £1,049. Next day delivery by courier.
+
+## Who we serve
+
+- [Restaurants](https://www.oneplustwo.co.uk/restaurants)
+- [Cafes](https://www.oneplustwo.co.uk/cafes)
+- [Takeaways](https://www.oneplustwo.co.uk/takeaways)
+- [Events and festivals](https://www.oneplustwo.co.uk/events-and-festivals)
+- [Food halls](https://www.oneplustwo.co.uk/food-halls)
+- [Retailers and grocers](https://www.oneplustwo.co.uk/retail)
+
+## Company
+
+- [Why us?](https://www.oneplustwo.co.uk/why-us): building POS software since 2005; OnePlusTwo founded in 2023.
+- [Customers](https://www.oneplustwo.co.uk/customers)
+- [Book a demo](https://www.oneplustwo.co.uk/book-a-demo): free 30-minute online demo.
+- Contact: hello@oneplustwo.co.uk, +44 24 7775 2650. Business Innovation Centre, Binley, Coventry, CV3 2TX.
