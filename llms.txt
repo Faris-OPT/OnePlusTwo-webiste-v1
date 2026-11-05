@@ -43,3 +43,13 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 - [Customers](https://www.oneplustwo.co.uk/customers)
 - [Book a demo](https://www.oneplustwo.co.uk/book-a-demo): free 30-minute online demo.
 - Contact: hello@oneplustwo.co.uk, +44 24 7775 2650. Business Innovation Centre, Binley, Coventry, CV3 2TX.
+
+<!-- blog:start -->
+## Blog
+
+- [How much does an EPOS system cost in the UK?](https://www.oneplustwo.co.uk/blog/epos-system-cost-uk): An EPOS system has two costs: a monthly software plan and one-off hardware. With OnePlusTwo, software starts at £49 a month + VAT and complete till kits start from £379 + VAT. Extra tills, kitchen screens and other add-ons are usually £19 a month + VAT each. Card processing fees are separate and vary by provider.
+- [Running a food hall on one POS system: what to look for](https://www.oneplustwo.co.uk/blog/food-hall-pos-system): A food hall works best when the hall and every vendor run on one centralised POS system. Each vendor keeps its own menu, tills and kitchen screens, while the hall sees live sales across every vendor in one place. Self-service kiosks and collection screens help keep queues moving at busy times.
+- [Online table bookings with live table status: how it works](https://www.oneplustwo.co.uk/blog/online-table-bookings-live-table-status): OnePlusTwo online table bookings let guests book a table on your website. They choose a date and time within your opening hours, pick a table area and select a free table, with table status shown live from your restaurant. Online reservations and table bookings are included in the Essentials and Premium plans.
+- [How to choose a POS system for a takeaway](https://www.oneplustwo.co.uk/blog/choose-pos-system-takeaway): The best POS system for a takeaway brings every order into one place. Look for delivery app integrations (Uber Eats, Deliveroo and Just Eat), your own online ordering website, kitchen display screens, phone order support, clear reports across every channel and support 7 days a week, when you're actually open.
+- [Are self-service kiosks worth it for a small restaurant or cafe?](https://www.oneplustwo.co.uk/blog/are-self-service-kiosks-worth-it): A self-service kiosk is usually worth it if you have counter service and queues at busy times. Kiosks shorten waits, suggest extras so orders are often bigger, and free your team to make and serve. With OnePlusTwo, kiosk hardware starts from £799 + VAT and the software from £59 a month + VAT.
+<!-- blog:end -->

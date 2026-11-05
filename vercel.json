@@ -3,11 +3,6 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/blog",
-      "destination": "/",
-      "permanent": false
-    },
-    {
       "source": "/index",
       "destination": "/",
       "permanent": true
