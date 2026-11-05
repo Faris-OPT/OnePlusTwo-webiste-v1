@@ -3,8 +3,8 @@ title: Are self-service kiosks worth it for a small restaurant or cafe?
 slug: are-self-service-kiosks-worth-it
 date: 2026-11-05
 category: tips
-image: /assets/img/illustrations/kiosk.svg
-image_alt: Customer ordering at a self-service kiosk
+image: /assets/img/blog/kiosks-with-card-machines.webp
+image_alt: Two self-service kiosks with card machines, showing "Order here"
 description: Are self-service kiosks worth it for smaller venues? What they cost, where they help most, and a simple way to work out if one would pay for itself.
 summary: What a kiosk costs, where it makes the biggest difference, and a simple sum to see if one would pay its way in your venue.
 answer: A self-service kiosk is usually worth it if you have counter service and queues at busy times. Kiosks shorten waits, suggest extras so orders are often bigger, and free your team to make and serve. With OnePlusTwo, kiosk hardware starts from £799 + VAT and the software from £59 a month + VAT.

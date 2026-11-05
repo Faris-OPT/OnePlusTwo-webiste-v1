@@ -4,8 +4,8 @@ slug: epos-system-cost-uk
 date: 2026-11-05
 category: tips
 featured: true
-image: /assets/img/illustrations/till.svg
-image_alt: Touchscreen till on a counter
+image: /assets/img/blog/epos-cost-till-counter.webp
+image_alt: Sunmi D3 Pro till running OnePlusTwo on a cafe counter
 description: A plain breakdown of what an EPOS system costs for a UK restaurant, cafe, takeaway or retailer: monthly software, one-off hardware and extras.
 summary: A plain breakdown of what you'll pay each month for software, what you'll pay once for hardware, and which extras to budget for.
 answer: An EPOS system has two costs: a monthly software plan and one-off hardware. With OnePlusTwo, software starts at £49 a month + VAT and complete till kits start from £379 + VAT. Extra tills, kitchen screens and other add-ons are usually £19 a month + VAT each. Card processing fees are separate and vary by provider.
