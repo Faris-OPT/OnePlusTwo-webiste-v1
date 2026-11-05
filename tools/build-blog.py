@@ -173,6 +173,7 @@ def page_shell(template, title, description, canonical, og_type='website', extra
     before = re.sub(r'<meta property="og:type" content="[^"]*">', f'<meta property="og:type" content="{og_type}">', before)
     before = re.sub(r'<script type="application/ld\+json"[^>]*>.*?</script>\n?', '', before, flags=re.S)
     before = re.sub(r' aria-current="page"', '', before)
+    before = before.replace('<li><a href="/blog">Blog</a></li>', '<li><a href="/blog" aria-current="page">Blog</a></li>', 1)
     if extra_head:
         before = before.replace('</head>', extra_head + '</head>', 1)
     return before, after
@@ -296,7 +297,9 @@ def main():
         write(f'blog/{post["slug"]}.html', article_page(template, post, others))
 
     start, end = template.index('<main id="main">'), template.index('</main>') + len('</main>')
-    write('blog.html', template[:start] + listing_main(posts) + template[end:])
+    listing = template[:start] + listing_main(posts) + template[end:]
+    listing = listing.replace('<li><a href="/blog">Blog</a></li>', '<li><a href="/blog" aria-current="page">Blog</a></li>', 1)
+    write('blog.html', listing)
     update_sitemap(posts)
     update_llms(posts)
     print(f'Built {len(posts)} articles:', ', '.join(slugs))

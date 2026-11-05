@@ -805,3 +805,12 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .article-body ul, .article-body ol { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
 .article-body a { color: var(--green-dark); font-weight: 600; }
 .article-body strong { color: var(--ink); }
+
+/* Header: keep menu items on one line now that Blog is in the menu */
+.main-nav a { white-space: nowrap; }
+@media (min-width: 1201px) and (max-width: 1340px) {
+  .site-header .container { gap: 16px; }
+  .main-nav ul { gap: 16px; }
+  .header-ctas { gap: 8px; }
+  .header-ctas .btn { padding-left: 20px; padding-right: 20px; }
+}
