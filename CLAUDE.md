@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N` (currently 45) and `main.js?v=N` (currently 43). After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N` (currently 46) and `main.js?v=N` (currently 44). After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -170,4 +170,4 @@ Read this before making any changes. It records decisions made while designing a
 ## Zempler Bank partner offer (November 2026)
 
 - Customers who open a Zempler Bank business account through https://www.zemplerbank.com/landing/business/go/generic/?PC=BAS480 get £100 off their EPOS kit. Shown as a subtle "Partner offer" strip (`.partner-strip`) on /shop (under the intro) and /pricing (under the ultimate bundle); links use `rel="sponsored noopener"`.
-- Claiming: the shop checkout has an optional "I've opened a Zempler business account" tickbox (`zempler_account`, sent with the order). Staff check the account and email the customer an updated total with £100 off before they pay; the confirmation screen tells ticked customers to wait for that email (`data-zempler-note`, main.js). There is no automatic discount.
+- The strip shows the Zempler Bank logo (`assets/img/partners/zempler-bank.png`). There is no checkout tickbox (removed at the user's request) and no automatic discount; staff apply the £100 themselves.
