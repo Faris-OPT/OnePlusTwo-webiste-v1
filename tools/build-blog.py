@@ -19,6 +19,8 @@ Each article is a Markdown file with a header block like this:
     answer: A direct 40 to 60 word answer, shown in the "Quick answer" box.
     draft: true                         (optional: leaves the article unpublished)
     featured: true                      (optional: shows it first, as the large card on /blog)
+    seo_title: Shorter title           (optional: used in the browser tab and Google when the title is long)
+    related: /takeaways, /caller-id     (optional: root pages that show this article in a "From the blog" section)
     ---
 
 The body supports ## headings, ### headings, paragraphs, - bullet lists, 1. numbered
@@ -173,10 +175,19 @@ def page_shell(template, title, description, canonical, og_type='website', extra
     before = re.sub(r'<meta property="og:type" content="[^"]*">', f'<meta property="og:type" content="{og_type}">', before)
     before = re.sub(r'<script type="application/ld\+json"[^>]*>.*?</script>\n?', '', before, flags=re.S)
     before = re.sub(r' aria-current="page"', '', before)
-    before = before.replace('<li><a href="/blog">Blog</a></li>', '<li><a href="/blog" aria-current="page">Blog</a></li>', 1)
+    before = mark_blog_current(before)
     if extra_head:
         before = before.replace('</head>', extra_head + '</head>', 1)
     return before, after
+
+
+def mark_blog_current(page):
+    """Underline Blog in the header menu only (never the footer link)."""
+    end = page.find('</header>')
+    if end == -1:
+        return page
+    head = page[:end].replace('<li><a href="/blog">Blog</a></li>', '<li><a href="/blog" aria-current="page">Blog</a></li>', 1)
+    return head + page[end:]
 
 
 def card(post):
@@ -205,7 +216,7 @@ def article_page(template, post, others):
         'abstract': post['answer'],
     }
     head = f'<meta property="article:published_time" content="{post["date"]}">\n<script type="application/ld+json" data-schema="article">{json.dumps(schema, ensure_ascii=False, separators=(",", ":"))}</script>\n'
-    before, after = page_shell(template, f'{post["title"]} | OnePlusTwo', post['description'], canonical, 'article', head)
+    before, after = page_shell(template, f'{post.get("seo_title") or post["title"]} | OnePlusTwo', post['description'], canonical, 'article', head)
     more = ''
     if others:
         more = ('<section class="section section--mint"><div class="container stack stack--lg"><div class="section-head"><h2 class="h2--sm">More from the blog</h2>'
@@ -278,6 +289,31 @@ def update_llms(posts):
     write('llms.txt', text)
 
 
+def update_related_pages(posts):
+    """Add or refresh a "From the blog" section on each root page an article lists under related:."""
+    by_page = {}
+    for p in posts:
+        for path in [x.strip() for x in p.get('related', '').split(',') if x.strip()]:
+            by_page.setdefault(path.strip('/'), []).append(p)
+    pattern = re.compile(r'<section class="[^"]*" data-blog-links>.*?</section>\n?', re.S)
+    for full in glob.glob(os.path.join(ROOT, '*.html')):
+        slug = os.path.basename(full)[:-5]
+        if slug == 'blog':
+            continue
+        page = read(os.path.basename(full))
+        new = pattern.sub('', page)
+        items = by_page.get(slug)
+        if items:
+            block = ('<section class="section" data-blog-links><div class="container stack stack--lg"><div class="section-head">'
+                     '<h2 class="h2--sm">From the blog</h2><a class="text-link" href="/blog">See all articles</a></div>'
+                     '<div class="grid grid-3 grid--top" style="gap: 40px 32px;">' + ''.join(card(p) for p in items[:3]) + '</div></div></section>\n')
+            main_start, main_end = new.index('<main id="main">'), new.index('</main>')
+            last = new.rfind('<section', main_start, main_end)
+            new = new[:last] + block + new[last:]
+        if new != page:
+            write(os.path.basename(full), new)
+
+
 def main():
     posts = [parse(os.path.relpath(p, ROOT)) for p in glob.glob(os.path.join(ROOT, 'content', 'blog', '*.md'))]
     posts = [p for p in posts if p.get('draft', '').lower() != 'true']
@@ -298,10 +334,11 @@ def main():
 
     start, end = template.index('<main id="main">'), template.index('</main>') + len('</main>')
     listing = template[:start] + listing_main(posts) + template[end:]
-    listing = listing.replace('<li><a href="/blog">Blog</a></li>', '<li><a href="/blog" aria-current="page">Blog</a></li>', 1)
+    listing = mark_blog_current(listing.replace(' aria-current="page"', ''))
     write('blog.html', listing)
     update_sitemap(posts)
     update_llms(posts)
+    update_related_pages(posts)
     print(f'Built {len(posts)} articles:', ', '.join(slugs))
 
 

@@ -4,6 +4,7 @@ slug: epos-system-cost-uk
 date: 2026-11-05
 category: tips
 featured: true
+related: /pricing, /point-of-sale
 image: /assets/img/blog/epos-cost-till-counter.webp
 image_alt: Sunmi D3 Pro till running OnePlusTwo on a cafe counter
 description: A plain breakdown of what an EPOS system costs for a UK restaurant, cafe, takeaway or retailer: monthly software, one-off hardware and extras.

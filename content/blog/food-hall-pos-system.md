@@ -2,10 +2,12 @@
 title: "Running a food hall on one POS system: what to look for"
 slug: food-hall-pos-system
 date: 2026-11-05
+seo_title: Food Hall POS System: What to Look For
 category: tips
+related: /food-halls
 image: /assets/img/illustrations/food-hall.svg
 image_alt: Indoor food hall with several vendors
-description: What a food hall needs from its POS system: one centralised system for the hall and every vendor, separate menus and kitchens, hall-wide reports and busy-time tools.
+description: What a food hall needs from its POS: one system for the hall and every vendor, separate menus and kitchens, and hall-wide reports.
 summary: When every vendor runs a different till, nobody sees the full picture. Here's what to look for in a POS system that covers the whole hall.
 answer: A food hall works best when the hall and every vendor run on one centralised POS system. Each vendor keeps its own menu, tills and kitchen screens, while the hall sees live sales across every vendor in one place. Self-service kiosks and collection screens help keep queues moving at busy times.
 ---

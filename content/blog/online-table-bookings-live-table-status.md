@@ -2,10 +2,12 @@
 title: "Online table bookings with live table status: how it works"
 slug: online-table-bookings-live-table-status
 date: 2026-11-05
+seo_title: Online Table Bookings with Live Table Status
 category: updates
+related: /table-bookings, /restaurants
 image: /assets/img/illustrations/table-booking.svg
 image_alt: Online table booking screen showing available and unavailable tables
-description: How OnePlusTwo online table bookings work: guests choose a date, time, table area and table, with live table status from your restaurant. Included in Essentials and Premium.
+description: How OnePlusTwo table bookings work: guests choose a date, time, area and table, with live table status. Included in Essentials.
 summary: Guests can now book online, choose a table area and pick a free table, with every table's status shown live from your restaurant.
 answer: OnePlusTwo online table bookings let guests book a table on your website. They choose a date and time within your opening hours, pick a table area and select a free table, with table status shown live from your restaurant. Online reservations and table bookings are included in the Essentials and Premium plans.
 ---

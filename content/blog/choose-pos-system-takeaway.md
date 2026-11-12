@@ -3,6 +3,7 @@ title: How to choose a POS system for a takeaway
 slug: choose-pos-system-takeaway
 date: 2026-11-05
 category: tips
+related: /takeaways, /caller-id, /online-ordering
 image: /assets/img/illustrations/takeaway.svg
 image_alt: Takeaway staff packing orders at the counter
 description: What to look for in a takeaway POS system: delivery app integrations, your own online ordering, kitchen screens, phone orders, reports and support.
@@ -21,7 +22,7 @@ Delivery apps bring new customers, but orders through your own website are yours
 
 ## 3. Phone orders that don't get lost
 
-Plenty of regulars still ring through, and phone orders scribbled on a pad are easy to lose. Check how the system handles phone orders. Our Essentials plan includes a phone (VoIP) integration, and we'll show you how it works with your phone line during your demo.
+Plenty of regulars still ring through, and phone orders scribbled on a pad are easy to lose. Check how the system handles phone orders. With OnePlusTwo [caller ID](/caller-id), the caller's number fills in on your till as the phone rings, and repeat customers' names and addresses appear too. It's included in the Essentials plan and works with VoIP phone lines, using the Artech VR1 caller ID box.
 
 ## 4. Kitchen display screens
 

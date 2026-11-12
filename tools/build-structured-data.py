@@ -9,6 +9,8 @@ It reads what is visible on each page, so the structured data always matches the
 - FAQPage: every root page with an FAQ list (<div class="faq ..."> of <details>).
 - Pricing (pricing.html): the monthly plans and the POS and kiosk bundle.
 - Shop (shop.html): each product card and its options, with prices before VAT.
+- Breadcrumbs: every root page whose <main> has a breadcrumb link (Home > section > page).
+- WebSite on the homepage, and the glossary terms (DefinedTermSet) on glossary.html.
 
 Each block is written just before </head> as <script type="application/ld+json" data-schema="...">
 and is replaced in place on later runs. No dependencies beyond Python 3.
@@ -146,6 +148,35 @@ def shop_schema(page):
     }
 
 
+def breadcrumb_schema(page, slug):
+    main = page[page.find('<main'):page.find('</main>')]
+    crumb = re.search(r'<a class="breadcrumb" href="(/[^"]*)">(.*?)</a>', main, re.S)
+    h1 = re.search(r'<h1[^>]*>(.*?)</h1>', main, re.S)
+    if not crumb or not h1:
+        return None
+    title = re.search(r'<title>(.*?)</title>', page, re.S)
+    name = text(title.group(1)).split(' | ')[0] if title else text(h1.group(1))
+    return {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE + '/'},
+        {'@type': 'ListItem', 'position': 2, 'name': text(crumb.group(2)), 'item': SITE + crumb.group(1)},
+        {'@type': 'ListItem', 'position': 3, 'name': name, 'item': f'{SITE}/{slug}'}]}
+
+
+def website_schema():
+    return {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'OnePlusTwo', 'url': SITE + '/',
+            'inLanguage': 'en-GB', 'publisher': {'@type': 'Organization', 'name': 'OnePlusTwo', 'url': SITE + '/'}}
+
+
+def glossary_schema(page):
+    items = re.findall(r'<div class="glossary-item" id="([^"]+)"><dt>(.*?)</dt><dd>(.*?)<a class="text-link"', page, re.S)
+    if not items:
+        return None
+    return {'@context': 'https://schema.org', '@type': 'DefinedTermSet', 'name': 'EPOS and POS glossary',
+            'url': f'{SITE}/glossary', 'hasDefinedTerm': [
+                {'@type': 'DefinedTerm', 'name': text(n), 'description': text(d), 'url': f'{SITE}/glossary#{i}'}
+                for i, n, d in items]}
+
+
 def main():
     changed = []
     for path in sorted(glob.glob(os.path.join(ROOT, '*.html'))):
@@ -153,6 +184,11 @@ def main():
         with open(path, encoding='utf-8') as f:
             page = f.read()
         new = put_block(page, 'faq', faq_schema(page, slug))
+        new = put_block(new, 'breadcrumb', breadcrumb_schema(new, slug))
+        if slug == 'index':
+            new = put_block(new, 'website', website_schema())
+        if slug == 'glossary':
+            new = put_block(new, 'glossary', glossary_schema(new))
         if slug == 'pricing':
             new = put_block(new, 'pricing', pricing_schema(new))
         if slug == 'shop':
