@@ -8,7 +8,7 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 
 - [Pricing](https://www.oneplustwo.co.uk/pricing): Starter £49 (order and table management, split payment and split bill, stock control, 7-day support). Essentials £79 (everything in Starter, plus a branded online ordering website, delivery app and other third-party integrations, VoIP integration, loyalty scheme, online table bookings). Premium £109 (everything in Essentials, plus mobile app integrations, multi-store capability and an assigned account manager).
 - The ultimate bundle: £99 a month + VAT for the software licences of one POS and one self-service kiosk. Hardware is not included.
-- Extra licences: £19 a month + VAT each for an additional till, kitchen display screen, collection display screen or menu screen. Self-service kiosks are £19 a month + VAT each from the second kiosk onwards.
+- Extra licences: £19 a month + VAT each for an additional till, kitchen display screen, customer or driver collection screen, or menu screen. Self-service kiosks are £19 a month + VAT each from the second kiosk onwards.
 - Delivery app integrations (Uber Eats, Deliveroo, Just Eat) may carry an additional charge.
 
 ## Products
@@ -17,6 +17,7 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 - [Self-service kiosks](https://www.oneplustwo.co.uk/self-service-kiosks): customers order and pay themselves. Kiosk packages from £799 + VAT.
 - [Kitchen display screens](https://www.oneplustwo.co.uk/kitchen-display-screens): orders on screen in the kitchen. From £399 + VAT, plus £19 a month + VAT per screen.
 - [Collection display screens](https://www.oneplustwo.co.uk/collection-display-screens): show customers when orders are ready. £19 a month + VAT per screen.
+- [Driver collection screens](https://www.oneplustwo.co.uk/driver-collection-screens): shows delivery drivers and couriers which orders are ready to collect. £19 a month + VAT per screen.
 - [Online ordering website](https://www.oneplustwo.co.uk/online-ordering): branded ordering site for collection, delivery and QR code table ordering. Included in Essentials and Premium.
 - [Table bookings](https://www.oneplustwo.co.uk/table-bookings): online reservations with table areas and live table status. Included in Essentials and Premium.
 - [Menu screens and digital signage](https://www.oneplustwo.co.uk/digital-signage): £19 a month + VAT per screen.
@@ -27,12 +28,16 @@ All prices are in GBP and exclude VAT. Hardware is a one-off cost, separate from
 ## Hardware (one-off, + VAT)
 
 - [Hardware](https://www.oneplustwo.co.uk/hardware): brands stocked are Sunmi, iMin, PAX and Zebra.
-- [Shop](https://www.oneplustwo.co.uk/shop): complete till kits from £379 (Tablet POS £379, Sunmi D3 Mini £449, Sunmi D3 Pro £499, iMin Swan 2 Pro £499, Sunmi D3 80mm £749), each with a cash drawer and integrated card machine, plus an 80mm receipt printer (the Sunmi D3 80mm has its printer built in). Handheld POS: Sunmi P3 Mix £399, Sunmi V3 Mix £379. Self-service kiosk package: 22-inch £799, 27-inch £1,049. Artech VR1 caller ID box £69. Next day delivery by courier.
+- [Shop](https://www.oneplustwo.co.uk/shop): complete till kits from £379 (Tablet POS £379, Sunmi D3 Mini £449, Sunmi D3 Pro £529, iMin Swan 2 Pro £499, Sunmi D3 80mm £749), each with a cash drawer and integrated card machine, plus an 80mm receipt printer (the Sunmi D3 80mm has its printer built in). Handheld POS: Sunmi P3 Mix £399, Sunmi V3 Mix £379. Self-service kiosk package: 22-inch £799, 27-inch £1,049. Artech VR1 caller ID box £69. Next day delivery by courier.
 
 ## Hardware models
 
 - [Sunmi D3 Pro](https://www.oneplustwo.co.uk/hardware/sunmi-d3-pro), [Sunmi D3 Mini](https://www.oneplustwo.co.uk/hardware/sunmi-d3-mini), [iMin Swan 2 Pro](https://www.oneplustwo.co.uk/hardware/imin-swan-2-pro) and [Sunmi D3 80mm](https://www.oneplustwo.co.uk/hardware/sunmi-d3-80mm) desktop tills; [Sunmi P3 Mix](https://www.oneplustwo.co.uk/hardware/sunmi-p3-mix) and [Sunmi V3 Mix](https://www.oneplustwo.co.uk/hardware/sunmi-v3-mix) handheld tills; [Sunmi P2SE](https://www.oneplustwo.co.uk/hardware/sunmi-p2se) card machine.
 - [Glossary](https://www.oneplustwo.co.uk/glossary): plain-English definitions of EPOS and POS terms.
+
+## Partner offer
+
+- £100 off a OnePlusTwo EPOS kit for customers who open a Zempler Bank business account through OnePlusTwo's link: https://www.zemplerbank.com/landing/business/go/generic/?PC=BAS480 (OnePlusTwo applies the discount after checking).
 
 ## Who we serve
 
