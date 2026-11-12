@@ -22,7 +22,7 @@ Delivery apps bring new customers, but orders through your own website are yours
 
 ## 3. Phone orders that don't get lost
 
-Plenty of regulars still ring through, and phone orders scribbled on a pad are easy to lose. Check how the system handles phone orders. With OnePlusTwo [caller ID](/caller-id), the caller's number fills in on your till as the phone rings, and repeat customers' names and addresses appear too. It's included in the Essentials plan and works with VoIP phone lines, using the Artech VR1 caller ID box.
+Plenty of regulars still ring through, and phone orders scribbled on a pad are easy to lose. Check how the system handles phone orders. With OnePlusTwo [caller ID](/caller-id), the caller's number fills in on your till as the phone rings, and repeat customers' names and addresses appear too. It's included in the Essentials plan and works with VoIP phone lines, using the Artech VR1 caller ID box. With pay by link, you can then text the customer a secure link to pay on their own phone.
 
 ## 4. Kitchen display screens
 
