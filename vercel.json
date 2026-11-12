@@ -61,6 +61,11 @@
       "source": "/contact",
       "destination": "/book-a-demo",
       "permanent": true
+    },
+    {
+      "source": "/pay-by-link",
+      "destination": "/caller-id#pay-by-link",
+      "permanent": true
     }
   ],
   "headers": [

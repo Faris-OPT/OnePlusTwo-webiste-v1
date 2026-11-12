@@ -154,7 +154,9 @@ Read this before making any changes. It records decisions made while designing a
 - Author shown as "Admin". Every article opens with a "Quick answer" box (40 to 60 words) for AI search, and only states facts and prices already on the site. Use the site's illustrations unless the user supplies photos; ask the user for images and, for customer stories, real facts and quotes before writing.
 - Publishing for now: the user sends a topic, Claude drafts it and opens a pull request with a preview. A "Blog posts" section in the back office is planned for later.
 
-## Caller ID
+## Caller ID & Pay by Link
+
+- Product renamed "Caller ID & Pay by Link" (Products tile, footer, page title) in November 2026; the URL stays `/caller-id` (`/pay-by-link` redirects to `/caller-id#pay-by-link`). Pay by link, confirmed by the user: staff send the customer a secure payment link by text message during a phone order, and the customer pays on their own phone. Included in Essentials (and so Premium). Don't name payment providers for it, and don't describe when the order reaches the kitchen. It's on the caller ID page (`#pay-by-link`), the Takeaways features list and FAQ, and the glossary.
 
 - `/caller-id` (Products card, footer Products column, Takeaways recommended hardware and features). Confirmed by the user in November 2026: the Artech VR1 connects to the venue's VoIP phone line; the caller's number fills in on the EPOS, and for repeat customers their name and address show too. Included in Essentials (and so Premium). VoIP only, not ordinary landlines. The VR1 (£69 + VAT, in the shop) is required.
 
