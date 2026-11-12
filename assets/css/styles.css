@@ -827,3 +827,9 @@ ul.brand-row { list-style: none; margin: 0; padding: 0; }
 .glossary-item dt { font-weight: 700; font-size: 1.1rem; }
 .glossary-item dd { margin: 0; color: var(--muted); }
 @media (max-width: 640px) { .glossary-item { grid-template-columns: 1fr; } }
+
+/* ---------- Partner offer strip (Zempler) ---------- */
+.partner-strip { display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding: 16px 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+.partner-strip p { margin: 0; flex: 1 1 280px; color: var(--ink); max-width: none; }
+.partner-strip--spaced { margin-top: 24px; }
+.callout-note { background: var(--mint); border-radius: 14px; padding: 14px 18px; color: var(--ink); max-width: none; }

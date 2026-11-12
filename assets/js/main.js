@@ -651,6 +651,8 @@ var OPT_CONFIG = {
           if (!res.ok) return res.json().then(function (j) { throw new Error(j && j.errors ? j.errors.map(function (x) { return x.message; }).join(' ') : ''); });
           var ok = document.getElementById('order-success');
           ok.querySelector('[data-ref]').textContent = ref;
+          var zNote = ok.querySelector('[data-zempler-note]'), zBox = document.getElementById('zempler');
+          if (zNote) zNote.hidden = !(zBox && zBox.checked);
           ok.querySelector('[data-total]').textContent = money(t.total) + ' including VAT';
           orderForm.hidden = true; ok.hidden = false; ok.focus();
           basket = []; save(basket);

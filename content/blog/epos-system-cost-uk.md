@@ -38,7 +38,8 @@ A complete till kit includes the till, a cash drawer, an integrated card machine
 
 - **Tablet POS, £379**
 - **Sunmi D3 Mini, £449**
-- **Sunmi D3 Pro or iMin Swan 2 Pro, £499**
+- **iMin Swan 2 Pro, £499**
+- **Sunmi D3 Pro, £529**
 - **Sunmi D3 80mm, £749**, with a built-in printer and customer display
 
 Handheld devices for taking orders at the table start from £379. You can order everything online from our [hardware shop](/shop), with next day delivery.
@@ -47,7 +48,7 @@ Handheld devices for taking orders at the table start from £379. You can order 
 
 As you grow, most add-ons are a simple monthly licence:
 
-- **Extra tills, kitchen display screens, collection screens and menu screens:** £19 a month each.
+- **Extra tills, kitchen display screens, customer and driver collection screens and menu screens:** £19 a month each.
 - **Self-service kiosks:** £59 a month for the software, or £99 a month for our ultimate bundle, which covers the software licences for one till and one kiosk. Each kiosk after the first is £19 a month. Kiosk hardware starts from £799.
 - **Kitchen display screen hardware:** from £399.
 - **Delivery app integrations:** Uber Eats, Deliveroo and Just Eat may carry an additional charge.
@@ -59,7 +60,7 @@ Card processing is charged by your payment provider, not by your EPOS supplier, 
 ## Three example setups
 
 - **A small cafe:** Starter at £49 a month, plus a Tablet POS kit at £379 one-off.
-- **A busy takeaway:** Essentials at £79 a month plus one kitchen screen licence at £19 a month (£98 a month in total), plus a Sunmi D3 Pro kit at £499 and an entry-level kitchen display screen at £399 (£898 one-off).
+- **A busy takeaway:** Essentials at £79 a month plus one kitchen screen licence at £19 a month (£98 a month in total), plus a Sunmi D3 Pro kit at £529 and an entry-level kitchen display screen at £399 (£928 one-off).
 - **A retailer with two tills:** Starter at £49 a month plus an extra till licence at £19 a month (£68 a month in total), plus two till kits.
 
 Every venue is different, so the best way to get an exact price is to [book a free demo](/book-a-demo). We'll recommend the setup that suits you, with the price on the page.

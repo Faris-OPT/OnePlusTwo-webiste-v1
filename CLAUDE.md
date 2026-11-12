@@ -15,7 +15,7 @@ Read this before making any changes. It records decisions made while designing a
 - Plain HTML, CSS and JavaScript. No framework and no build step. Hosted on Vercel, which deploys automatically from GitHub.
 - `vercel.json` sets clean URLs (`pricing.html` is served at `/pricing`) and redirects old Squarespace addresses. Add a redirect whenever a page is renamed or removed.
 - All styling is in `assets/css/styles.css`. Colours and fonts are CSS variables in `:root`. Reuse existing classes rather than adding inline styles.
-- Pages load `styles.css?v=N` (currently 44) and `main.js?v=N` (currently 42). After changing either file, increase N in every HTML page so browsers pick up the new version.
+- Pages load `styles.css?v=N` (currently 45) and `main.js?v=N` (currently 43). After changing either file, increase N in every HTML page so browsers pick up the new version.
 - `assets/js/main.js` handles the mobile menu, the enquiry form, the blog filter, the option pickers and the Why us? timeline.
 - The header and footer are copied into every HTML page. A change to either must be made in every page file.
 - When adding a page: copy an existing page, update the `<title>`, meta description, `canonical` link and `og:` tags, add it to `sitemap.xml`, and link it from the header or footer if needed.
@@ -46,13 +46,14 @@ Read this before making any changes. It records decisions made while designing a
 - Every plan includes 7-day support.
 - Enquiries are answered within 2 hours.
 - Short-term options are available for one-off events and festivals.
-- Complete till kit, one-off (dropdown, Tablet POS first): Tablet POS (Honor X9a 11" Android tablet) £379, Sunmi D3 Mini £449, Sunmi D3 Pro £499, iMin Swan 2 Pro £499, Sunmi D3 80mm £749 (a separate model with built-in 80mm printer and customer display; also in the Hardware page Desktop POS dropdown), all + VAT. Desktop POS system only (no printer, drawer or card machine): Sunmi D3 Pro £409, iMin Swan 2 Pro £409, Sunmi D3 Mini £379. "Additional Handheld POS" listing: Sunmi P3 Mix £399 (chip & PIN) or Sunmi V3 Mix £379 (Tap to Pay via NFC; never say "SoftPOS"), with Tablet / With cradle photo views. Customer display screen: £119 (D3 Pro), £89 (Swan 2 Pro). The iMin Swan 3 Pro is no longer sold. The Hardware page shows no prices; its buttons say "Order Now".
+- Complete till kit, one-off (dropdown, Tablet POS first): Tablet POS (Honor X9a 11" Android tablet) £379, Sunmi D3 Mini £449, Sunmi D3 Pro £529, iMin Swan 2 Pro £499, Sunmi D3 80mm £749 (a separate model with built-in 80mm printer and customer display; also in the Hardware page Desktop POS dropdown), all + VAT. Desktop POS system only (no printer, drawer or card machine): Sunmi D3 Pro £409, iMin Swan 2 Pro £369, Sunmi D3 Mini £379. "Additional Handheld POS" listing: Sunmi P3 Mix £399 (chip & PIN) or Sunmi V3 Mix £379 (Tap to Pay via NFC; never say "SoftPOS"), with Tablet / With cradle photo views. Customer display screen: £119 (D3 Pro), £89 (Swan 2 Pro). The iMin Swan 3 Pro is no longer sold. The Hardware page shows no prices; its buttons say "Order Now".
 - Warranty: all hardware 12 months manufacturer's warranty; iMin devices 36 months.
 - Sunmi P2SE card machine: £189 + VAT.
 - Kitchen display screens are NOT in any plan: £19 a month + VAT extra licence per screen. Delivery app integrations (Uber Eats, Deliveroo, Just Eat) may cost extra (asterisk on Essentials "3rd Party Integrations").
 - Enterprise band (over £1m a year or multi-site) on Home and Pricing links to `/book-a-demo?enquiry=multi-site#enquiry-form`, which preselects the business type and changes the email subject.
 - Online ordering website: included in Essentials and Premium (branded site, collection, delivery, online payments, QR code table ordering, orders straight to till and kitchen).
 - Collection display screens: £19 a month + VAT per screen. Customers supply their own TV or monitor.
+- Driver collection screens (`/driver-collection-screens`, added November 2026): show delivery drivers and couriers which orders are being prepared and which are ready to collect. £19 a month + VAT per screen; customer supplies the TV or monitor. Products tile, footer Products column, glossary.
 
 ## Do not put on the site
 
@@ -165,3 +166,8 @@ Read this before making any changes. It records decisions made while designing a
 - build-structured-data.py also writes BreadcrumbList for root pages with a breadcrumb link, and WebSite on the homepage.
 - `tools/optimise-images.py` adds image width/height and lazy loading below the first section. `node tools/build-og-images.js` makes a 1200x630 sharing image per page in `assets/img/og/` and sets og:image.
 - After any content change, run in this order: `python3 tools/build-blog.py`, `python3 tools/build-hardware-pages.py`, `python3 tools/build-structured-data.py`, `python3 tools/optimise-images.py`, `node tools/build-og-images.js`.
+
+## Zempler Bank partner offer (November 2026)
+
+- Customers who open a Zempler Bank business account through https://www.zemplerbank.com/landing/business/go/generic/?PC=BAS480 get £100 off their EPOS kit. Shown as a subtle "Partner offer" strip (`.partner-strip`) on /shop (under the intro) and /pricing (under the ultimate bundle); links use `rel="sponsored noopener"`.
+- Claiming: the shop checkout has an optional "I've opened a Zempler business account" tickbox (`zempler_account`, sent with the order). Staff check the account and email the customer an updated total with £100 off before they pay; the confirmation screen tells ticked customers to wait for that email (`data-zempler-note`, main.js). There is no automatic discount.
