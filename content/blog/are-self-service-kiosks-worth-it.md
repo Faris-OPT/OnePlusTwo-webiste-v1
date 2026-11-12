@@ -2,7 +2,9 @@
 title: Are self-service kiosks worth it for a small restaurant or cafe?
 slug: are-self-service-kiosks-worth-it
 date: 2026-11-05
+seo_title: Are Self-Service Kiosks Worth It for Small Venues?
 category: tips
+related: /self-service-kiosks, /cafes
 image: /assets/img/blog/kiosks-with-card-machines.webp
 image_alt: Two self-service kiosks with card machines, showing "Order here"
 description: Are self-service kiosks worth it for smaller venues? What they cost, where they help most, and a simple way to work out if one would pay for itself.
