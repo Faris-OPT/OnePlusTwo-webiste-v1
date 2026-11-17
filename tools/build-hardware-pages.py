@@ -8,7 +8,9 @@ Run from the repository root after changing content/hardware.json:
 Pages copy the header and footer from hardware.html. Like the Hardware page, they show
 no prices: each "Order now" button deep-links to the right product in the shop.
 tools/build-structured-data.py only reads root pages, so this script writes each page's
-Product, FAQ and breadcrumb structured data itself.
+FAQ and breadcrumb structured data itself. (No Product markup: these pages show no
+price, and Google requires a visible price, review or rating for Product results. The
+shop page carries the Product markup.)
 """
 import html
 import json
@@ -75,9 +77,6 @@ def page(template, d, all_models):
     others = [m for m in all_models if m['slug'] != d['slug']]
     more = ''.join(f'<a class="pill" href="/hardware/{m["slug"]}">{esc(m["name"])}</a>' for m in others)
     schema = [
-        {'@context': 'https://schema.org', '@type': 'Product', 'name': d['name'], 'description': d['lead'],
-         'brand': {'@type': 'Brand', 'name': d['brand']}, 'image': SITE + first[1], 'url': canonical,
-         'category': d['category']},
         {'@context': 'https://schema.org', '@type': 'FAQPage', 'url': canonical, 'mainEntity': [
             {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faqs]},
         {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [

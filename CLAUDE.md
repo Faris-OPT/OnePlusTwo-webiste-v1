@@ -173,3 +173,9 @@ Read this before making any changes. It records decisions made while designing a
 
 - Customers who open a Zempler Bank business account through https://www.zemplerbank.com/landing/business/go/generic/?PC=BAS480 get £100 off their EPOS kit. Shown as a subtle "Partner offer" strip (`.partner-strip`) on /shop (under the intro) and /pricing (under the ultimate bundle); links use `rel="sponsored noopener"`.
 - The strip shows the Zempler Bank logo (`assets/img/partners/zempler-bank.png`). There is no checkout tickbox (removed at the user's request) and no automatic discount; staff apply the £100 themselves.
+
+## Google structured data fixes (November 2026)
+
+- Search Console flagged non-critical Product snippet and Merchant listing warnings. The shop markup now lists one Product per option (each model with its own price, image and brand where the option names a single manufacturer: Sunmi, iMin, Honor, Artech), each with availability InStock, new condition and UK shipping details (£9.95, or £19.95 for kiosk packages; next day courier). Products whose brand isn't stated on the site (kitchen screens, printer, cash drawer, 22-inch kiosk that can be Sunmi or Zebra) have no brand.
+- The pricing page plans are marked up as a Service (subscription software), not a Product. Hardware model pages carry no Product markup because they show no price.
+- Not added on purpose: review and aggregateRating (there are no genuine product reviews; never invent them) and hasMerchantReturnPolicy (waiting for the user to decide, since business buyers have no automatic right to return).
