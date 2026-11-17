@@ -94,10 +94,12 @@ def pricing_schema(page):
         return None
     return {
         '@context': 'https://schema.org',
-        '@type': 'Product',
+        '@type': 'Service',
+        'serviceType': 'Point of sale (EPOS) software',
+        'provider': {'@type': 'Organization', 'name': 'OnePlusTwo', 'url': SITE + '/'},
         'name': 'OnePlusTwo POS software',
         'description': 'Cloud-based point of sale (EPOS) software for hospitality and retail businesses in the UK. Prices are per month and exclude VAT. Hardware is a separate one-off cost.',
-        'brand': {'@type': 'Brand', 'name': 'OnePlusTwo'},
+        'areaServed': 'GB',
         'url': f'{SITE}/pricing',
         'offers': offers,
     }
@@ -108,34 +110,58 @@ def attr(tag, name):
     return html.unescape(m.group(2)) if m else None
 
 
+BRANDS = ['Sunmi', 'iMin', 'Honor', 'Artech', 'PAX', 'Zebra']
+DELIVERY, DELIVERY_KIOSK = '9.95', '19.95'
+
+
+def brand_for(*texts):
+    """The one manufacturer named in the option's text, or None when none or several are named."""
+    found = {b for b in BRANDS for t in texts if t and re.search(r'\b' + b + r'\b', t, re.I)}
+    return found.pop() if len(found) == 1 else None
+
+
+def shipping(amount):
+    """Next day courier delivery in the UK at a flat rate (see the terms of sale)."""
+    day = lambda lo, hi: {'@type': 'QuantitativeValue', 'minValue': lo, 'maxValue': hi, 'unitCode': 'DAY'}
+    return {'@type': 'OfferShippingDetails',
+            'shippingRate': {'@type': 'MonetaryAmount', 'value': amount, 'currency': 'GBP'},
+            'shippingDestination': {'@type': 'DefinedRegion', 'addressCountry': 'GB'},
+            'deliveryTime': {'@type': 'ShippingDeliveryTime', 'handlingTime': day(0, 1), 'transitTime': day(1, 1)}}
+
+
 def shop_schema(page):
+    """One Product per shop option (each model is its own product, with its own brand, image and price)."""
     products = []
     for card in re.findall(r'(<article class="shop-card".*?</article>)', page, re.S):
         head = card[:card.index('>') + 1]
         pid, name = attr(head, 'data-product'), attr(head, 'data-name')
         img_tag = re.search(r'<img[^>]*data-shop-img[^>]*>', card) or re.search(r'<img[^>]*>', card)
-        image = attr(img_tag.group(0), 'src') if img_tag else None
+        card_image = attr(img_tag.group(0), 'src') if img_tag else None
         desc_m = re.search(r'</h3>\s*<p>(.*?)</p>', card, re.S)
-        desc = text(desc_m.group(1)) if desc_m else ''
-        options = re.findall(r'<option ([^>]*)>(.*?)</option>', card, re.S)
-        offers = []
+        card_desc = text(desc_m.group(1)) if desc_m else ''
+        rate = DELIVERY_KIOSK if pid.startswith('kiosk') else DELIVERY
+        options = re.findall(r'<option ([^>]*)>(.*?)</option>', card, re.S) or [('', name)]
         for opt, label in options:
-            value, pence = attr(opt, 'value'), attr(opt, 'data-price') or attr(head, 'data-price')
-            amount = gbp(pence)
-            url = f'{SITE}/shop?product={pid}&option={value}#product-{pid}'.replace(' ', '%20')
-            offers.append({'@type': 'Offer', 'name': f'{name}: {value}', 'price': amount, 'priceCurrency': 'GBP',
-                           'url': url, 'priceSpecification': price_spec(amount)})
-        if not offers:
-            amount = gbp(attr(head, 'data-price'))
-            offers.append({'@type': 'Offer', 'name': name, 'price': amount, 'priceCurrency': 'GBP',
-                           'url': f'{SITE}/shop#product-{pid}', 'priceSpecification': price_spec(amount)})
-        for offer in offers:
-            offer['seller'] = {'@type': 'Organization', 'name': 'OnePlusTwo'}
-        product = {'@type': 'Product', 'name': name, 'description': desc, 'url': f'{SITE}/shop#product-{pid}',
-                   'offers': offers}
-        if image:
-            product['image'] = SITE + image if image.startswith('/') else image
-        products.append(product)
+            value = attr(opt, 'value') if opt else None
+            amount = gbp((attr(opt, 'data-price') if opt else None) or attr(head, 'data-price'))
+            opt_desc = attr(opt, 'data-desc') if opt else None
+            image = (attr(opt, 'data-img') if opt else None) or card_image
+            title = f'{name}: {value.replace("Desktop POS: ", "")}' if value else name
+            url = (f'{SITE}/shop?product={pid}&option={value}#product-{pid}' if value else f'{SITE}/shop#product-{pid}').replace(' ', '%20')
+            product = {'@type': 'Product', 'name': title, 'description': ' '.join(x for x in (card_desc, opt_desc) if x),
+                       'url': url, 'offers': {
+                           '@type': 'Offer', 'price': amount, 'priceCurrency': 'GBP', 'url': url,
+                           'priceSpecification': price_spec(amount),
+                           'availability': 'https://schema.org/InStock',
+                           'itemCondition': 'https://schema.org/NewCondition',
+                           'shippingDetails': shipping(rate),
+                           'seller': {'@type': 'Organization', 'name': 'OnePlusTwo'}}}
+            brand = brand_for(value, opt_desc, name if not value else None)
+            if brand:
+                product['brand'] = {'@type': 'Brand', 'name': brand}
+            if image:
+                product['image'] = SITE + image if image.startswith('/') else image
+            products.append(product)
     if not products:
         return None
     return {
